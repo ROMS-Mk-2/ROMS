@@ -1,0 +1,31 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.app-container {
+  .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .avatar-icon {
+      margin: 16px;
+    }
+
+    .restaurant-info {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin: 16px;
+
+      .restaurant-logo {
+        width: 50px;
+        height: 50px;
+        background-color: $black;
+      }
+
+      .restaurant-name {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0;
+      }
+    }
+  }
+}
