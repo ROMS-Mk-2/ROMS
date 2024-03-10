@@ -1,0 +1,49 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.ticket-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0;
+  border-left: 1px $gray-500 solid;
+
+  .ticket-header {
+    div[class^="ticket-col"] {
+      background-color: $secondary;
+      color: $white;
+      height: 50px;
+      border: 1px $white solid;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticket-col-1 {
+      justify-content: flex-start;
+    }
+
+    .ticket-col-2 {
+      justify-content: center;
+    }
+  }
+
+  .ticket-items {
+    flex: 2;
+    display: flex;
+    .ticket-no-table {
+      user-select: none;
+      color: $gray-400;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .ticket-fn-button {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 16px;
+  }
+}
