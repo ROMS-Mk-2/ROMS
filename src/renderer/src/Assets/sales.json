@@ -1,0 +1,622 @@
+[
+  {
+    "": 0,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/2/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1529.84,
+    "Daypart Transaction Qty": 235
+  },
+  {
+    "": 10,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/3/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1397.96,
+    "Daypart Transaction Qty": 198
+  },
+  {
+    "": 20,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/4/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1583.05,
+    "Daypart Transaction Qty": 244
+  },
+  {
+    "": 30,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/5/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1674.46,
+    "Daypart Transaction Qty": 254
+  },
+  {
+    "": 40,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/6/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1676.32,
+    "Daypart Transaction Qty": 252
+  },
+  {
+    "": 50,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/7/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1719.84,
+    "Daypart Transaction Qty": 280
+  },
+  {
+    "": 60,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/8/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 2070.96,
+    "Daypart Transaction Qty": 326
+  },
+  {
+    "": 70,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/9/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1879.94,
+    "Daypart Transaction Qty": 285
+  },
+  {
+    "": 80,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/10/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1377.96,
+    "Daypart Transaction Qty": 221
+  },
+  {
+    "": 90,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/11/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1445.47,
+    "Daypart Transaction Qty": 238
+  },
+  {
+    "": 100,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/12/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1332.95,
+    "Daypart Transaction Qty": 236
+  },
+  {
+    "": 110,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/13/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1723.01,
+    "Daypart Transaction Qty": 288
+  },
+  {
+    "": 120,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/14/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1958.37,
+    "Daypart Transaction Qty": 302
+  },
+  {
+    "": 130,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/15/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 2008.56,
+    "Daypart Transaction Qty": 331
+  },
+  {
+    "": 140,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/16/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1502.05,
+    "Daypart Transaction Qty": 225
+  },
+  {
+    "": 150,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/17/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1437.56,
+    "Daypart Transaction Qty": 205
+  },
+  {
+    "": 160,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/18/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1131,
+    "Daypart Transaction Qty": 201
+  },
+  {
+    "": 170,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/19/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1339.01,
+    "Daypart Transaction Qty": 236
+  },
+  {
+    "": 180,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/20/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1832.33,
+    "Daypart Transaction Qty": 291
+  },
+  {
+    "": 190,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/21/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1929.69,
+    "Daypart Transaction Qty": 305
+  },
+  {
+    "": 200,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/22/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1802.75,
+    "Daypart Transaction Qty": 357
+  },
+  {
+    "": 210,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/23/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1787.52,
+    "Daypart Transaction Qty": 370
+  },
+  {
+    "": 220,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/24/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1257.83,
+    "Daypart Transaction Qty": 227
+  },
+  {
+    "": 230,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/25/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1416.56,
+    "Daypart Transaction Qty": 251
+  },
+  {
+    "": 240,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/26/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1412.6,
+    "Daypart Transaction Qty": 248
+  },
+  {
+    "": 250,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/27/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1743.39,
+    "Daypart Transaction Qty": 271
+  },
+  {
+    "": 260,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/28/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 2022.87,
+    "Daypart Transaction Qty": 301
+  },
+  {
+    "": 270,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/29/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1784.98,
+    "Daypart Transaction Qty": 270
+  },
+  {
+    "": 280,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/30/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1755.68,
+    "Daypart Transaction Qty": 280
+  },
+  {
+    "": 290,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/31/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1337.69,
+    "Daypart Transaction Qty": 222
+  },
+  {
+    "": 300,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "2/1/10",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1535.98,
+    "Daypart Transaction Qty": 244
+  },
+  {
+    "": 310,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/1/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1627.39,
+    "Daypart Transaction Qty": 248
+  },
+  {
+    "": 320,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/2/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1368.46,
+    "Daypart Transaction Qty": 218
+  },
+  {
+    "": 330,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/3/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1438.61,
+    "Daypart Transaction Qty": 235
+  },
+  {
+    "": 340,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/4/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1434.5,
+    "Daypart Transaction Qty": 250
+  },
+  {
+    "": 350,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/5/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1543.23,
+    "Daypart Transaction Qty": 269
+  },
+  {
+    "": 360,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/6/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1885.31,
+    "Daypart Transaction Qty": 289
+  },
+  {
+    "": 370,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/7/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 2084.13,
+    "Daypart Transaction Qty": 316
+  },
+  {
+    "": 380,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/8/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1481.14,
+    "Daypart Transaction Qty": 245
+  },
+  {
+    "": 390,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/9/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 399.18,
+    "Daypart Transaction Qty": 62
+  },
+  {
+    "": 400,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/10/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1484.11,
+    "Daypart Transaction Qty": 243
+  },
+  {
+    "": 410,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/11/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1227.54,
+    "Daypart Transaction Qty": 203
+  },
+  {
+    "": 420,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/12/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1469.53,
+    "Daypart Transaction Qty": 257
+  },
+  {
+    "": 430,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/13/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1835.94,
+    "Daypart Transaction Qty": 293
+  },
+  {
+    "": 440,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/14/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 2238.06,
+    "Daypart Transaction Qty": 333
+  },
+  {
+    "": 450,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/15/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1512.77,
+    "Daypart Transaction Qty": 245
+  },
+  {
+    "": 460,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/16/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1164.53,
+    "Daypart Transaction Qty": 202
+  },
+  {
+    "": 470,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/17/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1375.82,
+    "Daypart Transaction Qty": 228
+  },
+  {
+    "": 480,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/18/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1468.26,
+    "Daypart Transaction Qty": 258
+  },
+  {
+    "": 490,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/19/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1425.06,
+    "Daypart Transaction Qty": 239
+  },
+  {
+    "": 500,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/20/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1969.06,
+    "Daypart Transaction Qty": 298
+  },
+  {
+    "": 510,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/21/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 2108.98,
+    "Daypart Transaction Qty": 328
+  },
+  {
+    "": 520,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/22/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1557.73,
+    "Daypart Transaction Qty": 258
+  },
+  {
+    "": 530,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/23/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1224.3,
+    "Daypart Transaction Qty": 191
+  },
+  {
+    "": 540,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/24/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1447.63,
+    "Daypart Transaction Qty": 241
+  },
+  {
+    "": 550,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/25/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1673.08,
+    "Daypart Transaction Qty": 261
+  },
+  {
+    "": 560,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/26/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1585.21,
+    "Daypart Transaction Qty": 272
+  },
+  {
+    "": 570,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/27/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1888.17,
+    "Daypart Transaction Qty": 294
+  },
+  {
+    "": 580,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/28/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1972.98,
+    "Daypart Transaction Qty": 307
+  },
+  {
+    "": 590,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/29/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1625.29,
+    "Daypart Transaction Qty": 271
+  },
+  {
+    "": 600,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/30/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1363.83,
+    "Daypart Transaction Qty": 214
+  },
+  {
+    "": 610,
+    "REST_KEY": 1364,
+    "Rest Coop": "SEA/TCA WA CP-0024",
+    "Reporting Day": "1/31/11",
+    "Daypart Name": "After 4PM",
+    "Daypart Description": "4PM - Close",
+    "Daypart Sales $": 1372.74,
+    "Daypart Transaction Qty": 244
+  }
+]

@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 
 import Header from "./Layouts/Header";
 import TableTicket from "./Components/TableTicket";
+import SalesGraph from "./Components/SalesGraph";
 import "./App.scss";
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       </Row>
       <Row className="app-main-content">
         <Col className="g-0" xs={7}>
-          Dynamic Content
+          <SalesGraph />
         </Col>
         <Col className="g-0">
           <TableTicket />
