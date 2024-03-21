@@ -1,5 +1,6 @@
 import { app, BrowserWindow, dialog, ipcMain } from "electron/main";
 import * as path from "path";
+import * as url from "url";
 
 let mainWindow;
 
@@ -20,7 +21,7 @@ function createWindow() {
     },
   });
   mainWindow.webContents.openDevTools();
-  //   mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
+  //mainWindow.loadFile(path.join(__dirname, "../game/index.html"));
   mainWindow.loadURL("http://localhost:5173");
   mainWindow.on("closed", () => (mainWindow = null));
 }
