@@ -3,26 +3,32 @@ import { Unity, useUnityContext } from "react-unity-webgl";
 
 const Game = () => {
   const { unityProvider, sendMessage } = useUnityContext({
-    loaderUrl: "/unity/Build.loader.js",
-    dataUrl: "/unity/Build.data",
-    frameworkUrl: "/unity/Build.framework.js",
-    codeUrl: "/unity/Build.wasm",
+    loaderUrl: "/unity/Builds.loader.js",
+    dataUrl: "/unity/Builds.data",
+    frameworkUrl: "/unity/Builds.framework.js",
+    codeUrl: "/unity/Builds.wasm",
   });
 
-  const randomNumberInRange = (min, max) => {
-    return Math.floor(Math.random()
-        * (max - min + 1)) + min;
-};
+  function sendZeroToUnity() {
+    var numToString = '' + 0;
+    sendMessage("Manager", "ReceiveData", numToString);
+  }
 
-  function sendDataToUnity() {
-    var num = (randomNumberInRange(1, 100));
-    var numToString = '' + num;
-    sendMessage("EventHandler", "ReceiveData", numToString);
+  function sendOneToUnity() {
+    var numToString = '' + 1;
+    sendMessage("Manager", "ReceiveData", numToString);
+  }
+
+  function sendTwoToUnity() {
+    var numToString = '' + 2;
+    sendMessage("Manager", "ReceiveData", numToString);
   }
   
   return (
     <div>
-        <button onClick={sendDataToUnity}>Send Text to Unity</button>
+        <button onClick={sendZeroToUnity}>Hamburger</button>
+        <button onClick={sendOneToUnity}>Pizza</button>
+        <button onClick={sendTwoToUnity}>Hotdog</button>
         <Unity unityProvider={unityProvider} style={{ width: "100%" }} />
     </div>
     );
