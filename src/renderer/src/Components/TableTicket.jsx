@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import EmptySvg from "../Assets/Empty.svg";
 import "./TableTicket.scss";
 
-const TableTicket = ({ selectedItems }) => {
+const TableTicket = ({ orderItems }) => {
   return (
     <Container className="ticket-container" fluid>
       <div className="ticket-header">
@@ -25,11 +25,27 @@ const TableTicket = ({ selectedItems }) => {
         </Row>
       </div>
       <Row className="ticket-items">
-        {selectedItems.length > 0 ? (
+        {Object.keys(orderItems).length > 0 ? (
           <Col>
-            {selectedItems.map((item, index) => (
-              <Row key={index}>{item.name}</Row>
-            ))}
+            {Object.entries(orderItems).map(
+              ([itemName, itemDetails], index) => (
+                <Row key={index} className="item-ticket">
+                  <Col xs={7}>
+                    <div>
+                      <input type="checkbox" className="me-2" />
+                      <span>{itemName}</span>
+                    </div>
+                  </Col>
+
+                  <Col className="d-flex justify-content-center">
+                    {itemDetails.quantity}
+                  </Col>
+                  <Col className="d-flex justify-content-center">
+                    {itemDetails.price}
+                  </Col>
+                </Row>
+              )
+            )}
           </Col>
         ) : (
           <div className="ticket-no-table">
