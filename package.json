@@ -15,6 +15,7 @@
     "react-bootstrap": "^2.10.1",
     "react-bootstrap-icons": "^1.11.3",
     "react-dom": "^18.2.0",
+    "sqlite3": "^5.1.7",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
