@@ -17,9 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Routes>
           <Route path="/" element={<PinPad />}></Route>
           <Route path="/app" element={<App />}>
-            <Route path="table" element={ta}>
-              <TableGrid />
-            </Route>
+            <Route path="table" element={<TableGrid />}></Route>
             <Route path="admin" element={<div>Administrator</div>}></Route>
           </Route>
         </Routes>

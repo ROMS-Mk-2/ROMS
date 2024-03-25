@@ -6,12 +6,9 @@ import { connect } from "react-redux";
 
 import Header from "./Layouts/Header";
 import TableTicket from "./Components/TableTicket";
-import TableGraph from "./Components/TableGraph";
-import GridLayout from "./Components/GridLayout";
 import "./App.scss";
-import { useState } from "react";
 
-function App({ isAuth }) {
+function App({ isAuth, orderedItems }) {
   return isAuth ? (
     <Container className="app-container" fluid>
       <Row>
@@ -24,7 +21,7 @@ function App({ isAuth }) {
           <Outlet />
         </Col>
         <Col className="g-0">
-          <TableTicket orderItems={orderItems} />
+          <TableTicket orderItems={orderedItems} />
         </Col>
       </Row>
     </Container>
@@ -34,7 +31,10 @@ function App({ isAuth }) {
 }
 
 const mapStateToProps = (state) => {
-  return { isAuth: state.authenticated };
+  return {
+    isAuth: state.auth.authenticated,
+    orderedItems: state.app.orderedItems,
+  };
 };
 
 export default connect(mapStateToProps)(App);

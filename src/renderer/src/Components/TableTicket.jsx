@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { connect } from "react-redux";
 
 import EmptySvg from "../Assets/Empty.svg";
 import "./TableTicket.scss";
@@ -32,7 +33,7 @@ const TableTicket = ({ orderItems }) => {
                 <Row key={index} className="item-ticket">
                   <Col xs={7}>
                     <div>
-                      <input type="checkbox" className="me-2" />
+                      <input type="checkbox" className="form-check-input" />
                       <span>{itemName}</span>
                     </div>
                   </Col>
@@ -59,4 +60,8 @@ const TableTicket = ({ orderItems }) => {
   );
 };
 
-export default TableTicket;
+const mapStateToProps = (state) => {
+  return { orderItems: state.app.orderedItem };
+};
+
+export default connect(mapStateToProps)(TableTicket);

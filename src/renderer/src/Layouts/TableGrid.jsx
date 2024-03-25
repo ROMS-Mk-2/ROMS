@@ -1,32 +1,27 @@
 import React from "react";
+import { useDispatch, connect } from "react-redux";
 
-const TableGrid = () => {
-  const [orderItems, setOrderItems] = useState({});
+import GridLayout from "../Components/GridLayout";
+import {
+  setOrderedItem,
+  incrementItemQty,
+} from "../Utilities/Store/appReducer/appSlice";
 
-  function handleItemClick(selectedItem) {
-    setOrderItems((prevItems) => {
-      // Check if the item already exists in the order
-      if (prevItems[selectedItem.name]) {
-        // Item exists, update its quantity
-        return {
-          ...prevItems,
-          [selectedItem.name]: {
-            ...prevItems[selectedItem.name],
-            quantity: prevItems[selectedItem.name].quantity + 1,
-          },
-        };
-      } else {
-        // Item does not exist, add it with quantity 1
-        return {
-          ...prevItems,
-          [selectedItem.name]: {
-            quantity: 1,
-            price: selectedItem.price, // Assuming selectedItem has a price property
-          },
-        };
-      }
-    });
-  }
+const TableGrid = ({ orderedItems }) => {
+  const dispatch = useDispatch();
+  const handleItemClick = (selectedItem) => {
+    let updatedItems = { ...orderedItems };
+
+    if (updatedItems[selectedItem.name]) {
+      dispatch(incrementItemQty(selectedItem.name));
+    } else {
+      updatedItems[selectedItem.name] = {
+        quantity: 1,
+        price: selectedItem.price,
+      };
+      dispatch(setOrderedItem(updatedItems));
+    }
+  };
 
   const testData = [
     { name: "beans", quantity: 0, price: "$20" },
@@ -41,4 +36,8 @@ const TableGrid = () => {
   return <GridLayout data={testData} onItemSelect={handleItemClick} />;
 };
 
-export default TableGrid;
+const mapStateToProps = (state) => {
+  return { orderedItems: state.app.orderedItem };
+};
+
+export default connect(mapStateToProps)(TableGrid);

@@ -97,7 +97,7 @@ const PinPad = ({ isAuth }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { isAuth: state.authenticated };
+  return { isAuth: state.auth.authenticated };
 };
 
 export default connect(mapStateToProps)(PinPad);
