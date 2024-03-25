@@ -4,10 +4,21 @@ import Col from "react-bootstrap/Col";
 
 import Header from "./Layouts/Header";
 import TableTicket from "./Components/TableTicket";
-import TableGraph from "./Components/TableGraph"
+import TableGraph from "./Components/TableGraph";
+import GridLayout from "./Components/GridLayout";
 import "./App.scss";
 
 function App() {
+  const testData = [
+    { name: "beans" },
+    { name: "toast" },
+    { name: "soda" },
+    { name: "chicken" },
+    { name: "egg roll" },
+    { name: "butter" },
+    { name: "teeb" },
+  ];
+
   return (
     <Container className="app-container" fluid>
       <Row>
@@ -18,6 +29,7 @@ function App() {
       <Row className="app-main-content">
         <Col className="g-0" xs={7}>
           <TableGraph />
+          <GridLayout data={testData} />
         </Col>
         <Col className="g-0">
           <TableTicket />
