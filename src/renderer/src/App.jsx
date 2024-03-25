@@ -7,8 +7,23 @@ import TableTicket from "./Components/TableTicket";
 import TableGraph from "./Components/TableGraph";
 import GridLayout from "./Components/GridLayout";
 import "./App.scss";
+import { useState } from "react";
 
 function App() {
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  const handleItemClick = (item) => {
+    if (
+      !selectedItems.find((selectedItem) => selectedItem.name === item.name)
+    ) {
+      setSelectedItems((prevSelectedItems) => {
+        const newSelectedItems = [...prevSelectedItems, item];
+        console.log("Selected:", newSelectedItems);
+        return newSelectedItems;
+      });
+    }
+  };
+
   const testData = [
     { name: "beans" },
     { name: "toast" },
@@ -28,11 +43,11 @@ function App() {
       </Row>
       <Row className="app-main-content">
         <Col className="g-0" xs={7}>
-          <TableGraph />
-          <GridLayout data={testData} />
+          {/* <TableGraph /> */}
+          <GridLayout data={testData} onItemSelect={handleItemClick} />
         </Col>
         <Col className="g-0">
-          <TableTicket />
+          <TableTicket selectedItems={selectedItems} />
         </Col>
       </Row>
     </Container>

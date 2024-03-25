@@ -12,7 +12,7 @@ function chunkerrr(array, chunkSize) {
   return chunks;
 }
 
-function GridLayout({ data }) {
+function GridLayout({ data, onItemSelect }) {
   const chunks = chunkerrr(data, 5);
 
   return (
@@ -23,16 +23,23 @@ function GridLayout({ data }) {
         <Row className="grid-row" key={rowIndex}>
           {/* iterate over each item in a chunk to turn into a col */}
           {chunk.map((item, colIndex) => (
-            <Col className="grid-col" key={`${rowIndex}-${colIndex}`}>
+            <Col
+              className="grid-col d-flex align-items-center justify-content-center"
+              key={`${rowIndex}-${colIndex}`}
+              onClick={() => onItemSelect(item)}
+            >
               {item.name}{" "}
             </Col>
           ))}
-          {chunk.length < 5 &&
-            Array.from({ length: 5 - chunk.length }).map((_, index) => (
+          {/* need to fill the last row with invisible items so they stay the same size without 5 items */}
+          {rowIndex === chunks.length - 1 &&
+            Array.from({ length: 5 - chunk.length }, (_, index) => (
               <Col
-                className="grid-col"
-                key={`empty-${rowIndex}-${index}`}
-              ></Col>
+                className="grid-col d-flex align-items-center justify-content-center invisible"
+                key={`placeholder-${rowIndex}-${index}`}
+              >
+                &nbsp;
+              </Col>
             ))}
         </Row>
       ))}

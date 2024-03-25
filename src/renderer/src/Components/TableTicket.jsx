@@ -6,8 +6,7 @@ import Col from "react-bootstrap/Col";
 import EmptySvg from "../Assets/Empty.svg";
 import "./TableTicket.scss";
 
-const TableTicket = () => {
-  const items = [];
+const TableTicket = ({ selectedItems }) => {
   return (
     <Container className="ticket-container" fluid>
       <div className="ticket-header">
@@ -26,9 +25,15 @@ const TableTicket = () => {
         </Row>
       </div>
       <Row className="ticket-items">
-        {items.length === 0 && (
+        {selectedItems.length > 0 ? (
+          <Col>
+            {selectedItems.map((item, index) => (
+              <Row key={index}>{item.name}</Row>
+            ))}
+          </Col>
+        ) : (
           <div className="ticket-no-table">
-            <img src={EmptySvg} alt="" />
+            <img src={EmptySvg} alt="Empty" />
             Select a Table
           </div>
         )}
