@@ -5,7 +5,6 @@ import { Button } from "react-bootstrap";
 
 import Header from "./Layouts/Header";
 import TableTicket from "./Components/TableTicket";
-import { sendSQL } from "./Utilities/SQLFunctions";
 import TableGraph from "./Components/TableGraph"
 import SalesGraph from "./Components/SalesGraph";
 import "./App.scss";
