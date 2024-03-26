@@ -8,14 +8,57 @@ console.log(dbPath);
 const db = new sqlite3.Database("./roms.db");
 
 db.serialize(() => {
-  db.run("CREATE TABLE IF NOT EXISTS lorem (info TEXT)");
-
-  const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  for (let i = 0; i < 10; i++) {
-    stmt.run("Ipsum " + i);
-  }
-  stmt.finalize();
+  db.run(`
+    CREATE TABLE IF NOT EXISTS employees (
+      pin INTEGER PRIMARY KEY NOT NULL,
+      first_name TEXT NOT NULL,
+      last_name TEXT NOT NULL,
+      authority_level INTEGER NOT NULL
+    );`, () => {
+    db.run(`
+      CREATE TABLE IF NOT EXISTS menu (
+        id INTEGER PRIMARY KEY NOT NULL,
+        name TEXT NOT NULL,
+        price DOUBLE NOT NULL,
+        image_link TEXT,
+        description TEXT,
+        gui_position INTEGER NOT NULL
+      );`, () => {
+      db.run(`
+        CREATE TABLE IF NOT EXISTS tables (
+          id INTEGER PRIMARY KEY NOT NULL,
+          seating_size INTEGER NOT NULL
+        );`, () => {
+        db.run(`
+          CREATE TABLE IF NOT EXISTS transaction_history (
+            id INTEGER PRIMARY KEY NOT NULL,
+            patron_count INTEGER NOT NULL,
+            server_id TEXT NOT NULL,
+            table_id INTEGER NOT NULL,
+            arrival_time TIMESTAMP NOT NULL,
+            end_time TIMESTAMP NOT NULL,
+            pretip_bill DOUBLE NOT NULL,
+            final_bill DOUBLE NOT NULL,
+            tip DOUBLE NOT NULL,
+            date DATE NOT NULL,
+            FOREIGN KEY (server_id) REFERENCES employees(pin),
+            FOREIGN KEY (table_id) REFERENCES tables(id)
+          );`, () => {
+          db.run(`
+            CREATE TABLE IF NOT EXISTS orders (
+              id INTEGER PRIMARY KEY NOT NULL,
+              transaction_id INTEGER NOT NULL,
+              menu_item INTEGER NOT NULL,
+              quantity INTEGER NOT NULL,
+              FOREIGN KEY (transaction_id) REFERENCES transaction_history(id),
+              FOREIGN KEY (menu_item) REFERENCES menu(id)
+            );`);
+        });
+      });
+    });
+  });
 });
+
 
 const handleFileOpen = async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({});
