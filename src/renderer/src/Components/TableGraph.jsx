@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 import Button from "react-bootstrap/Button";
-import salesData from "../Assets/sales.json";
 import moment from "moment";
+import { sendSQL } from "../Utilities/SQLFunctions";
 
 const TableGraph = () => {
+
+  const [salesData, setSalesData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await sendSQL("SELECT * FROM transaction_history")
+      return response
+    }
+    fetchData().then(data => {
+      setSalesData(data)
+    })
+  }, []);
+
   const [timeframe, setTimeframe] = useState("1M");
   const [statistic, setStatistic] = useState("SPP");
   const [filteredData, setFilteredData] = useState({ table: [], stat: [], title: "1 Month Sales Per Person"});
@@ -56,37 +69,41 @@ const TableGraph = () => {
       if (!acc[tableId]) {
         acc[tableId] = { table_id: tableId, value: 0, count: 0 };
       }
+      
+      const arrivalTime = moment(curr.arrival_time, "HH:mm");
+      const endTime = moment(curr.end_time, "HH:mm");
+      let timeSpent = endTime.diff(arrivalTime, 'minutes');
+  
       switch (statistic) {
         case 'SPP':
-            statisticTitle = "Sales Per Person"
-            if(curr.patron_count > 0) acc[tableId].value += curr.final_bill / curr.patron_count;
-            break;
+          statisticTitle = "Sales Per Person";
+          if(curr.patron_count > 0) acc[tableId].value += curr.final_bill / curr.patron_count;
+          break;
         case 'TP':
-            statisticTitle = "Tip Percentage"
-            if(curr.final_bill > 0) acc[tableId].value += (curr.tip * 100) / curr.final_bill;
-            break;
+          statisticTitle = "Tip Percentage";
+          if(curr.final_bill > 0) acc[tableId].value += (curr.tip * 100) / curr.final_bill;
+          break;
         case 'TS':
-            statisticTitle = "Time Spent"
-            acc[tableId].value += curr.time_spent;
-            break;
+          statisticTitle = "Time Spent";
+          acc[tableId].value += timeSpent;
+          break;
         case 'SPH':
-            statisticTitle = "Sales Per Hour"
-            if(curr.time_spent > 0) acc[tableId].value += (curr.final_bill * 60) / curr.time_spent;
-            break;
+          statisticTitle = "Sales Per Hour";
+          if(timeSpent > 0) acc[tableId].value += (curr.final_bill * 60) / timeSpent;
+          break;
         default:
-            statisticTitle = "Sales Per Person"
-            if(curr.patron_count > 0) acc[tableId].value += curr.final_bill / curr.patron_count;
+          statisticTitle = "Sales Per Person";
+          if(curr.patron_count > 0) acc[tableId].value += curr.final_bill / curr.patron_count;
       }
-    
+  
       acc[tableId].count++;
       return acc;
     }, {});
-    
+  
     Object.keys(groupedData).forEach((key) => {
       groupedData[key].value /= groupedData[key].count;
     });
-    
-
+  
     setFilteredData({
       table: Object.values(groupedData).map((data) => data.table_id),
       stat: Object.values(groupedData).map((data) => data.value),
@@ -96,7 +113,7 @@ const TableGraph = () => {
 
   useEffect(() => {
     processData(timeframe, statistic);
-  }, [timeframe, statistic]);
+  }, [salesData, timeframe, statistic]);
 
 
   return (

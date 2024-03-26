@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 import Button from "react-bootstrap/Button";
-import salesData from "../Assets/sales.json";
 import moment from "moment";
+import { sendSQL } from "../Utilities/SQLFunctions";
 
 const SalesGraph = () => {
+
+  const [salesData, setSalesData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await sendSQL("SELECT * FROM transaction_history")
+      return response
+    }
+    fetchData().then(data => {
+      setSalesData(data)
+    })
+  }, []);
+
   const [timeframe, setTimeframe] = useState("1M");
   const [filteredData, setFilteredData] = useState({ days: [], sales: [], title: "1 Month"});
 
@@ -67,7 +80,7 @@ const SalesGraph = () => {
 
   useEffect(() => {
     processData(timeframe);
-  }, [timeframe]);
+  }, [salesData, timeframe]);
 
 
   // Generate tick values and text for the x-axis

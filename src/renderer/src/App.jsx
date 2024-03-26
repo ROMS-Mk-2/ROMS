@@ -20,7 +20,6 @@ function App() {
       </Row>
       <Row className="app-main-content">
         <Col className="g-0" xs={7}>
-          <Button onClick={() => sendSQL("SELECT * FROM lorem")}>SQL</Button>
           <TableGraph />
           <SalesGraph />
         </Col>
