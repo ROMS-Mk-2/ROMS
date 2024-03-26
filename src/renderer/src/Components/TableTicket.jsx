@@ -33,7 +33,10 @@ const TableTicket = ({ orderItems }) => {
                 <Row key={index} className="item-ticket">
                   <Col xs={7}>
                     <div>
-                      <input type="checkbox" className="form-check-input" />
+                      <input
+                        type="checkbox"
+                        className="form-check-input me-2"
+                      />
                       <span>{itemName}</span>
                     </div>
                   </Col>

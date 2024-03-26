@@ -9,16 +9,109 @@ import TableGrid from "./Layouts/TableGrid.jsx";
 import store from "./Utilities/Store/index.js";
 import "./index.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AdminGrid from "./Layouts/AdminGrid.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
         <Routes>
-          <Route path="/" element={<PinPad />}></Route>
+          <Route path="/" element={<PinPad />} />
           <Route path="/app" element={<App />}>
-            <Route path="table" element={<TableGrid />}></Route>
-            <Route path="admin" element={<div>Administrator</div>}></Route>
+            <Route path="table" element={<TableGrid />} />
+            <Route path="admin" element={<AdminGrid />}>
+              <Route path="table-analytics">
+                <Route
+                  index
+                  element={<div>Category 1 - Table Analytics</div>}
+                />
+                <Route
+                  path="category1"
+                  element={<div>Category 1 - Table Analytics</div>}
+                />
+                <Route
+                  path="category2"
+                  element={<div>Category 2 - Table Analytics</div>}
+                />
+                <Route
+                  path="category3"
+                  element={<div>Category 3 - Table Analytics</div>}
+                />
+              </Route>
+
+              <Route path="menu-management">
+                <Route
+                  index
+                  element={<div>Category 1 - Menu Management</div>}
+                />
+                <Route
+                  path="category1"
+                  element={<div>Category 1 - Menu Management</div>}
+                />
+                <Route
+                  path="category2"
+                  element={<div>Category 2 - Menu Management</div>}
+                />
+                <Route
+                  path="category3"
+                  element={<div>Category 3 - Menu Management</div>}
+                />
+              </Route>
+
+              <Route path="table-management">
+                <Route
+                  index
+                  element={<div>Category 1 - Table Management</div>}
+                />
+                <Route
+                  path="category1"
+                  element={<div>Category 1 - Table Management</div>}
+                />
+                <Route
+                  path="category2"
+                  element={<div>Category 2 - Table Management</div>}
+                />
+                <Route
+                  path="category3"
+                  element={<div>Category 3 - Table Management</div>}
+                />
+              </Route>
+
+              <Route path="sales-report">
+                <Route index element={<div>Category 1 - Sales Report</div>} />
+                <Route
+                  path="category1"
+                  element={<div>Category 1 - Sales Report</div>}
+                />
+                <Route
+                  path="category2"
+                  element={<div>Category 2 - Sales Report</div>}
+                />
+                <Route
+                  path="category3"
+                  element={<div>Category 3 - Sales Report</div>}
+                />
+              </Route>
+
+              <Route path="employee-management">
+                <Route
+                  index
+                  element={<div>Category 1 - Employee Management</div>}
+                />
+                <Route
+                  path="category1"
+                  element={<div>Category 1 - Employee Management</div>}
+                />
+                <Route
+                  path="category2"
+                  element={<div>Category 2 - Employee Management</div>}
+                />
+                <Route
+                  path="category3"
+                  element={<div>Category 3 - Employee Management</div>}
+                />
+              </Route>
+            </Route>
           </Route>
         </Routes>
       </Router>
