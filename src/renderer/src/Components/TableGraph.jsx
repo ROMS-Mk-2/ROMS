@@ -6,7 +6,11 @@ import { sendSQL } from "../Utilities/SQLFunctions";
 
 const TableGraph = ({ statisticProp }) => {
   const [salesData, setSalesData] = useState([]);
-
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  
   useEffect(() => {
     async function fetchData() {
       const response = await sendSQL("SELECT * FROM transaction_history");
@@ -21,6 +25,15 @@ const TableGraph = ({ statisticProp }) => {
     setStatistic(statisticProp);
   }, [statisticProp]);
 
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const [timeframe, setTimeframe] = useState("1M");
   const [statistic, setStatistic] = useState(statisticProp);
   const [filteredData, setFilteredData] = useState({
@@ -29,6 +42,7 @@ const TableGraph = ({ statisticProp }) => {
     title: "1 Month Sales Per Person",
     yaxis: "Sales Per Person ($)"
   });
+  
 
   const processData = (timeframe, statistic) => {
     let startDate;
@@ -132,7 +146,7 @@ const TableGraph = ({ statisticProp }) => {
 
   useEffect(() => {
     processData(timeframe, statistic);
-  }, [salesData, timeframe, statistic]);
+  }, [salesData, timeframe, statistic, windowSize]);
 
   return (
     <>
@@ -164,6 +178,7 @@ const TableGraph = ({ statisticProp }) => {
             showgrid: false,
           },
         }}
+        useResizeHandler={true}
       />
 
       <div style={{ marginLeft: "20px", marginBottom: "20px" }}>

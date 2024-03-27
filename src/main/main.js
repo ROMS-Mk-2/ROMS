@@ -95,6 +95,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
+    // FOR FULLSCREEN
+    // fullscreen: true, 
     webPreferences: {
       preload: path.join(__dirname, "../preload/preload.js"),
       nodeIntegration: true,
@@ -102,6 +104,8 @@ function createWindow() {
     },
   });
   mainWindow.webContents.openDevTools();
+  // TO MAXIMIZE WINDOW (NOT FULLSCREEN)
+  mainWindow.maximize();
   //   mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
   mainWindow.loadURL("http://localhost:5173");
   mainWindow.on("closed", () => {
