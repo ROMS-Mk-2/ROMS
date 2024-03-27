@@ -126,8 +126,7 @@ const SalesGraph = () => {
           },
         ]}
         layout={{
-          width: 1280,
-          height: 720,
+          autosize: true,
           title: `${filteredData.title} Sales`,
           xaxis: {
             tickvals: tickVals,

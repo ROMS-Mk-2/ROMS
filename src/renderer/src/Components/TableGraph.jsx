@@ -147,8 +147,7 @@ const TableGraph = ({ statisticProp }) => {
           },
         ]}
         layout={{
-          width: 1280,
-          height: 720,
+          autosize: true,
           title: filteredData.title,
           xaxis: {
             tickvals: filteredData.table,
