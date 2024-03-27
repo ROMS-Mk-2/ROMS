@@ -126,8 +126,8 @@ const SalesGraph = () => {
           },
         ]}
         layout={{
-          width: 640,
-          height: 480,
+          width: 1280,
+          height: 720,
           title: `${filteredData.title} Sales`,
           xaxis: {
             tickvals: tickVals,
@@ -137,14 +137,49 @@ const SalesGraph = () => {
         }}
       />
 
-      <div>
-        <Button onClick={() => setTimeframe("1W")}>1W</Button>
-        <Button onClick={() => setTimeframe("1M")}>1M</Button>
-        <Button onClick={() => setTimeframe("3M")}>3M</Button>
-        <Button onClick={() => setTimeframe("6M")}>6M</Button>
-        <Button onClick={() => setTimeframe("1Y")}>1Y</Button>
-        <Button onClick={() => setTimeframe("YTD")}>YTD</Button>
-        <Button onClick={() => setTimeframe("All")}>All</Button>
+<div style={{ marginLeft: "20px", marginBottom: "20px" }}>
+        <Button
+          style={{ marginRight: "5px" }}
+          onClick={() => setTimeframe("1W")}
+        >
+          1W
+        </Button>
+        <Button
+          style={{ marginRight: "5px" }}
+          onClick={() => setTimeframe("1M")}
+        >
+          1M
+        </Button>
+        <Button
+          style={{ marginRight: "5px" }}
+          onClick={() => setTimeframe("3M")}
+        >
+          3M
+        </Button>
+        <Button
+          style={{ marginRight: "5px" }}
+          onClick={() => setTimeframe("6M")}
+        >
+          6M
+        </Button>
+        <Button
+          style={{ marginRight: "5px" }}
+          onClick={() => setTimeframe("1Y")}
+        >
+          1Y
+        </Button>
+        <Button
+          style={{ marginRight: "5px" }}
+          onClick={() => setTimeframe("YTD")}
+        >
+          YTD
+        </Button>
+        <Button
+          style={{ marginRight: "5px" }}
+          onClick={() => setTimeframe("All")}
+        >
+          All
+        </Button>
       </div>
     </>
   );

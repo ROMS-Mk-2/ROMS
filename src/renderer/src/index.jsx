@@ -80,11 +80,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               </Route>
 
               <Route path="sales-report">
-                <Route path="category1" element={<SalesGraph />} />
+                <Route path="sales" element={<SalesGraph />} />
               </Route>
 
               <Route path="table-analytics">
-                <Route path="category1" element={<TableGraph />} />
+                <Route path="spp" element={<TableGraph statisticProp="SPP" />} />
+                <Route path="sph" element={<TableGraph statisticProp="SPH" />} />
+                <Route path="ts" element={<TableGraph statisticProp="TS" />} />
+                <Route path="tp" element={<TableGraph statisticProp="TP" />} />
               </Route>
             </Route>
           </Route>
