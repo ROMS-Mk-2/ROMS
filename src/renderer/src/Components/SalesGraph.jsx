@@ -5,21 +5,24 @@ import moment from "moment";
 import { sendSQL } from "../Utilities/SQLFunctions";
 
 const SalesGraph = () => {
-
   const [salesData, setSalesData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await sendSQL("SELECT * FROM transaction_history")
-      return response
+      const response = await sendSQL("SELECT * FROM transaction_history");
+      return response;
     }
-    fetchData().then(data => {
-      setSalesData(data)
-    })
+    fetchData().then((data) => {
+      setSalesData(data);
+    });
   }, []);
 
   const [timeframe, setTimeframe] = useState("1M");
-  const [filteredData, setFilteredData] = useState({ days: [], sales: [], title: "1 Month"});
+  const [filteredData, setFilteredData] = useState({
+    days: [],
+    sales: [],
+    title: "1 Month",
+  });
 
   const processData = (timeframe) => {
     let startDate;
@@ -27,35 +30,35 @@ const SalesGraph = () => {
     switch (timeframe) {
       case "1W":
         startDate = moment().subtract(1, "week");
-        title = "1 Week"
+        title = "1 Week";
         break;
       case "1M":
         startDate = moment().subtract(1, "month");
-        title = "1 Month"
+        title = "1 Month";
         break;
       case "3M":
         startDate = moment().subtract(3, "months");
-        title = "3 Months"
+        title = "3 Months";
         break;
       case "6M":
         startDate = moment().subtract(6, "months");
-        title = "6 Months"
+        title = "6 Months";
         break;
       case "1Y":
         startDate = moment().subtract(1, "year");
-        title = "1 Year"
+        title = "1 Year";
         break;
       case "YTD":
         startDate = moment().startOf("year");
-        title = "Year To Date"
+        title = "Year To Date";
         break;
       case "All":
         startDate = moment(0);
-        title = "All Time"
+        title = "All Time";
         break;
       default:
         startDate = moment().subtract(1, "month");
-        title = "1 Month"
+        title = "1 Month";
     }
 
     const data = salesData
@@ -74,7 +77,7 @@ const SalesGraph = () => {
     setFilteredData({
       days: Object.values(groupedData).map((data) => data.date),
       sales: Object.values(groupedData).map((data) => data.final_bill),
-      title: title
+      title: title,
     });
   };
 
@@ -82,16 +85,18 @@ const SalesGraph = () => {
     processData(timeframe);
   }, [salesData, timeframe]);
 
-
   // Generate tick values and text for the x-axis
   const { tickVals, tickText } = filteredData.days.reduce(
     (acc, date, index, array) => {
       // Check if it's a new month, a new year for the "All" timeframe, or any day for "1W" and "1M"
-      const isNewTick = (timeframe === "1W" || timeframe === "1M")
-        ? true
-        : (timeframe === "All"
-            ? (index === 0 || moment(date).year() !== moment(array[index - 1]).year())
-            : (index === 0 || moment(date).month() !== moment(array[index - 1]).month()));
+      const isNewTick =
+        timeframe === "1W" || timeframe === "1M"
+          ? true
+          : timeframe === "All"
+          ? index === 0 ||
+            moment(date).year() !== moment(array[index - 1]).year()
+          : index === 0 ||
+            moment(date).month() !== moment(array[index - 1]).month();
 
       if (isNewTick) {
         acc.tickVals.push(date);
@@ -111,6 +116,7 @@ const SalesGraph = () => {
   return (
     <>
       <Plot
+        style={{ overflow: "hidden" }}
         data={[
           {
             x: filteredData.days,
@@ -126,7 +132,7 @@ const SalesGraph = () => {
           xaxis: {
             tickvals: tickVals,
             ticktext: tickText,
-            tickangle: (timeframe === "1W") ? 0 : undefined,
+            tickangle: timeframe === "1W" ? 0 : undefined,
           },
         }}
       />

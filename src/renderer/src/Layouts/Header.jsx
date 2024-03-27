@@ -1,17 +1,16 @@
-import React from "react";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
-import Image from "react-bootstrap/Image";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownToggle from "react-bootstrap/DropdownToggle";
 import DropdownMenu from "react-bootstrap/DropdownMenu";
 import DropdownItem from "react-bootstrap/DropdownItem";
+import Image from "react-bootstrap/Image";
+import React from "react";
 import Nav from "react-bootstrap/Nav";
+import { XSquare } from "react-bootstrap-icons";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import DefaultAvatar from "../Components/DefaultAvatar";
 import CustomDropdownToggle from "../Utilities/CustomDropdownToggle";
+import DefaultAvatar from "../Components/DefaultAvatar";
 import imgPlaceholder from "../Assets/11Ratio.png";
 import { logout } from "../Utilities/Store/authReducer/authSlice";
 
@@ -24,34 +23,32 @@ const Header = ({ restaurantName, logo, user }) => {
 
   const adminRoutes = {
     "/app/admin/table-analytics": (
-      <>
+      <Nav
+        variant="tab"
+        onSelect={(key) => navigate(key)}
+        defaultActiveKey="/app/admin/table-analytics/category1"
+      >
         <Nav.Item>
-          <Nav.Link onClick={() => navigate("/app/admin/")}>
-            Table Analytics
+          <Nav.Link eventKey="/app/admin">
+            <XSquare fontSize={24} />
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="/app/admin/table-analytics/category1">
-            Category 1
+            Table Analytics
           </Nav.Link>
         </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/table-analytics/category2">
-            Category 2
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/table-analytics/category3">
-            Category 3
-          </Nav.Link>
-        </Nav.Item>
-      </>
+      </Nav>
     ),
     "/app/admin/menu-management": (
-      <>
+      <Nav
+        variant="tab"
+        onSelect={(key) => navigate(key)}
+        defaultActiveKey="/app/admin/menu-management/category1"
+      >
         <Nav.Item>
-          <Nav.Link onClick={() => navigate("/app/admin/")}>
-            Menu Management
+          <Nav.Link eventKey="/app/admin">
+            <XSquare fontSize={24} />
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -69,13 +66,17 @@ const Header = ({ restaurantName, logo, user }) => {
             Category 3
           </Nav.Link>
         </Nav.Item>
-      </>
+      </Nav>
     ),
     "/app/admin/table-management": (
-      <>
+      <Nav
+        variant="tab"
+        onSelect={(key) => navigate(key)}
+        defaultActiveKey="/app/admin/table-management/category1"
+      >
         <Nav.Item>
-          <Nav.Link onClick={() => navigate("/app/admin/")}>
-            Table Management
+          <Nav.Link eventKey="/app/admin">
+            <XSquare fontSize={24} />
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -93,37 +94,35 @@ const Header = ({ restaurantName, logo, user }) => {
             Category 3
           </Nav.Link>
         </Nav.Item>
-      </>
+      </Nav>
     ),
     "/app/admin/sales-report": (
-      <>
+      <Nav
+        variant="tab"
+        onSelect={(key) => navigate(key)}
+        defaultActiveKey="/app/admin/sales-report/category1"
+      >
         <Nav.Item>
-          <Nav.Link onClick={() => navigate("/app/admin/")}>
-            Sales Report
+          <Nav.Link eventKey="/app/admin">
+            <XSquare fontSize={24} />
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="/app/admin/sales-report/category1">
-            Category 1
+            Sales Graph
           </Nav.Link>
         </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/sales-report/category2">
-            Category 2
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/sales-report/category3">
-            Category 3
-          </Nav.Link>
-        </Nav.Item>
-      </>
+      </Nav>
     ),
     "/app/admin/employee-management": (
-      <>
+      <Nav
+        variant="tab"
+        onSelect={(key) => navigate(key)}
+        defaultActiveKey="/app/admin/employee-management/category1"
+      >
         <Nav.Item>
-          <Nav.Link onClick={() => navigate("/app/admin/")}>
-            Employee Management
+          <Nav.Link eventKey="/app/admin">
+            <XSquare fontSize={24} />
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -141,7 +140,7 @@ const Header = ({ restaurantName, logo, user }) => {
             Category 3
           </Nav.Link>
         </Nav.Item>
-      </>
+      </Nav>
     ),
   };
 
@@ -196,10 +195,14 @@ const Header = ({ restaurantName, logo, user }) => {
             )}
           </Nav>
         ) : (
-          <Tabs defaultActiveKey="table" onSelect={navigateTo}>
-            <Tab eventKey="table" title="Table"></Tab>
-            <Tab eventKey="admin" title="Administrator"></Tab>
-          </Tabs>
+          <Nav variant="tabs" defaultActiveKey="table" onSelect={navigateTo}>
+            <Nav.Item>
+              <Nav.Link eventKey="table">Table</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="admin">Administrator</Nav.Link>
+            </Nav.Item>
+          </Nav>
         )}
       </div>
     </>

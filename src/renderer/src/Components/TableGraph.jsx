@@ -125,6 +125,7 @@ const TableGraph = () => {
   return (
     <>
       <Plot
+        style={{ overflow: "hidden" }}
         data={[
           {
             x: filteredData.table,

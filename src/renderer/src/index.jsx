@@ -3,13 +3,15 @@ import ReactDOM from "react-dom/client";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
+import AdminGrid from "./Layouts/AdminGrid.jsx";
 import App from "./App.jsx";
 import PinPad from "./Components/PinPad.jsx";
+import SalesGraph from "./Components/SalesGraph.jsx";
+import TableGraph from "./Components/TableGraph.jsx";
 import TableGrid from "./Layouts/TableGrid.jsx";
 import store from "./Utilities/Store/index.js";
 import "./index.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import AdminGrid from "./Layouts/AdminGrid.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -20,22 +22,22 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/app" element={<App />}>
             <Route path="table" element={<TableGrid />} />
             <Route path="admin" element={<AdminGrid />}>
-              <Route path="table-analytics">
+              <Route path="employee-management">
                 <Route
                   index
-                  element={<div>Category 1 - Table Analytics</div>}
+                  element={<div>Category 1 - Employee Management</div>}
                 />
                 <Route
                   path="category1"
-                  element={<div>Category 1 - Table Analytics</div>}
+                  element={<div>Category 1 - Employee Management</div>}
                 />
                 <Route
                   path="category2"
-                  element={<div>Category 2 - Table Analytics</div>}
+                  element={<div>Category 2 - Employee Management</div>}
                 />
                 <Route
                   path="category3"
-                  element={<div>Category 3 - Table Analytics</div>}
+                  element={<div>Category 3 - Employee Management</div>}
                 />
               </Route>
 
@@ -78,38 +80,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               </Route>
 
               <Route path="sales-report">
-                <Route index element={<div>Category 1 - Sales Report</div>} />
-                <Route
-                  path="category1"
-                  element={<div>Category 1 - Sales Report</div>}
-                />
-                <Route
-                  path="category2"
-                  element={<div>Category 2 - Sales Report</div>}
-                />
-                <Route
-                  path="category3"
-                  element={<div>Category 3 - Sales Report</div>}
-                />
+                <Route path="category1" element={<SalesGraph />} />
               </Route>
 
-              <Route path="employee-management">
-                <Route
-                  index
-                  element={<div>Category 1 - Employee Management</div>}
-                />
-                <Route
-                  path="category1"
-                  element={<div>Category 1 - Employee Management</div>}
-                />
-                <Route
-                  path="category2"
-                  element={<div>Category 2 - Employee Management</div>}
-                />
-                <Route
-                  path="category3"
-                  element={<div>Category 3 - Employee Management</div>}
-                />
+              <Route path="table-analytics">
+                <Route path="category1" element={<TableGraph />} />
               </Route>
             </Route>
           </Route>

@@ -15,11 +15,11 @@ const AdminGrid = () => {
 
   const handleItemClick = (selectedItem) => {
     const routeMap = {
-      "Table Analytics": "/app/admin/table-analytics",
-      "Menu Management": "/app/admin/menu-management",
-      "Table Management": "/app/admin/table-management",
-      "Sales Report": "/app/admin/sales-report",
-      "Employee Management": "/app/admin/employee-management",
+      "Table Analytics": "/app/admin/table-analytics/category1",
+      "Menu Management": "/app/admin/menu-management/category1",
+      "Table Management": "/app/admin/table-management/category1",
+      "Sales Report": "/app/admin/sales-report/category1",
+      "Employee Management": "/app/admin/employee-management/category1",
     };
 
     const route = routeMap[selectedItem.name];
