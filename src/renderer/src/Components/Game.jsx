@@ -1,7 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useCallback, useEffect } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 
 const Game = () => {
+  const { addEventListener, removeEventListener } = useUnityContext();
+  const [data, setData] = useState();
+
   const { unityProvider, sendMessage } = useUnityContext({
     loaderUrl: "/unity/Builds.loader.js",
     dataUrl: "/unity/Builds.data",
@@ -24,12 +27,25 @@ const Game = () => {
     sendMessage("Manager", "ReceiveData", numToString);
   }
   
+   const handleSetData = useCallback((data) => {
+      setData(data);
+    }, []);
+
+  useEffect(() => {
+    addEventListener("SendData", handleSetData);
+    return () =>{
+      removeEventListener("SendData", handleSetData);;
+    };
+  }, [addEventListener, removeEventListener, handleSetData]);
+
+
   return (
     <div>
         <button onClick={sendZeroToUnity}>Hamburger</button>
         <button onClick={sendOneToUnity}>Pizza</button>
         <button onClick={sendTwoToUnity}>Hotdog</button>
         <Unity unityProvider={unityProvider} style={{ width: "100%" }} />
+        <p>{`Data: ${data}!`}</p>
     </div>
     );
 };
