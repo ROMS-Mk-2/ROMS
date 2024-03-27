@@ -8,6 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+package-lock.json
 dist
 dist-ssr
 out
@@ -23,3 +24,5 @@ out
 *.njsproj
 *.sln
 *.sw?
+
+*.db

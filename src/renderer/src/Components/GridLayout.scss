@@ -1,0 +1,18 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.grid-col {
+  border: 0.5px solid black;
+  background-color: $primary;
+  text-align: center;
+  height: 100px;
+}
+
+.grid-row {
+  text-align: center;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
