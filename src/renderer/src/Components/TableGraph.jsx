@@ -4,9 +4,13 @@ import Button from "react-bootstrap/Button";
 import moment from "moment";
 import { sendSQL } from "../Utilities/SQLFunctions";
 
-const TableGraph = () => {
+const TableGraph = ({ statisticProp }) => {
   const [salesData, setSalesData] = useState([]);
-
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  
   useEffect(() => {
     async function fetchData() {
       const response = await sendSQL("SELECT * FROM transaction_history");
@@ -17,18 +21,34 @@ const TableGraph = () => {
     });
   }, []);
 
+  useEffect(() => {
+    setStatistic(statisticProp);
+  }, [statisticProp]);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const [timeframe, setTimeframe] = useState("1M");
-  const [statistic, setStatistic] = useState("SPP");
+  const [statistic, setStatistic] = useState(statisticProp);
   const [filteredData, setFilteredData] = useState({
     table: [],
     stat: [],
     title: "1 Month Sales Per Person",
+    yaxis: "Sales Per Person ($)"
   });
+  
 
   const processData = (timeframe, statistic) => {
     let startDate;
     let timeframeTitle;
     let statisticTitle;
+    let yaxisTitle;
     switch (timeframe) {
       case "1W":
         startDate = moment().subtract(1, "week");
@@ -80,25 +100,30 @@ const TableGraph = () => {
       switch (statistic) {
         case "SPP":
           statisticTitle = "Sales Per Person";
+          yaxisTitle = "Sales Per Person ($)"
           if (curr.patron_count > 0)
             acc[tableId].value += curr.final_bill / curr.patron_count;
           break;
         case "TP":
           statisticTitle = "Tip Percentage";
+          yaxisTitle = "Tip Percentage (%)"
           if (curr.final_bill > 0)
             acc[tableId].value += (curr.tip * 100) / curr.final_bill;
           break;
         case "TS":
           statisticTitle = "Time Spent";
+          yaxisTitle = "Time Spent (minutes)"
           acc[tableId].value += timeSpent;
           break;
         case "SPH":
           statisticTitle = "Sales Per Hour";
+          yaxisTitle = "Sales Per Hour ($)"
           if (timeSpent > 0)
             acc[tableId].value += (curr.final_bill * 60) / timeSpent;
           break;
         default:
           statisticTitle = "Sales Per Person";
+          yaxisTitle = "Sales Per Person ($)"
           if (curr.patron_count > 0)
             acc[tableId].value += curr.final_bill / curr.patron_count;
       }
@@ -115,12 +140,13 @@ const TableGraph = () => {
       table: Object.values(groupedData).map((data) => data.table_id),
       stat: Object.values(groupedData).map((data) => data.value),
       title: timeframeTitle + " " + statisticTitle,
+      yaxis: yaxisTitle
     });
   };
 
   useEffect(() => {
     processData(timeframe, statistic);
-  }, [salesData, timeframe, statistic]);
+  }, [salesData, timeframe, statistic, windowSize]);
 
   return (
     <>
@@ -135,8 +161,7 @@ const TableGraph = () => {
           },
         ]}
         layout={{
-          width: 640,
-          height: 480,
+          autosize: true,
           title: filteredData.title,
           xaxis: {
             tickvals: filteredData.table,
@@ -149,9 +174,11 @@ const TableGraph = () => {
             },
           },
           yaxis: {
+            title: filteredData.yaxis,
             showgrid: false,
           },
         }}
+        useResizeHandler={true}
       />
 
       <div style={{ marginLeft: "20px", marginBottom: "20px" }}>
@@ -196,32 +223,6 @@ const TableGraph = () => {
           onClick={() => setTimeframe("All")}
         >
           All
-        </Button>
-      </div>
-      <div style={{ marginLeft: "20px" }}>
-        <Button
-          style={{ marginRight: "5px" }}
-          onClick={() => setStatistic("SPP")}
-        >
-          Sales Per Person
-        </Button>
-        <Button
-          style={{ marginRight: "5px" }}
-          onClick={() => setStatistic("TP")}
-        >
-          Tip Percentage
-        </Button>
-        <Button
-          style={{ marginRight: "5px" }}
-          onClick={() => setStatistic("TS")}
-        >
-          Time Spent
-        </Button>
-        <Button
-          style={{ marginRight: "5px" }}
-          onClick={() => setStatistic("SPH")}
-        >
-          Sales Per Hour
         </Button>
       </div>
     </>
