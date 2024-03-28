@@ -6,7 +6,7 @@ import Image from "react-bootstrap/Image";
 import React from "react";
 import Nav from "react-bootstrap/Nav";
 import { XSquare } from "react-bootstrap-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import CustomDropdownToggle from "../Utilities/CustomDropdownToggle";
@@ -171,7 +171,7 @@ const Header = ({ restaurantName, logo, user }) => {
             <DropdownToggle as={CustomDropdownToggle}>
               <DefaultAvatar
                 className="avatar-icon"
-                fullName={"Corentin Favier"}
+                fullName={`${user.first_name} ${user.last_name}`}
                 width={50}
                 height={50}
               />
@@ -209,4 +209,8 @@ const Header = ({ restaurantName, logo, user }) => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+  return { user: state.auth.user };
+};
+
+export default connect(mapStateToProps)(Header);
