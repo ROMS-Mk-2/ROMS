@@ -15,10 +15,10 @@ const AdminGrid = () => {
 
   const handleItemClick = (selectedItem) => {
     const routeMap = {
-      "Table Analytics": "/app/admin/table-analytics/category1",
+      "Table Analytics": "/app/admin/table-analytics/spp",
       "Menu Management": "/app/admin/menu-management/category1",
       "Table Management": "/app/admin/table-management/category1",
-      "Sales Report": "/app/admin/sales-report/category1",
+      "Sales Report": "/app/admin/sales-report/sales",
       "Employee Management": "/app/admin/employee-management/category1",
     };
 

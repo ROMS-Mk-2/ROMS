@@ -26,7 +26,7 @@ const Header = ({ restaurantName, logo, user }) => {
       <Nav
         variant="tab"
         onSelect={(key) => navigate(key)}
-        defaultActiveKey="/app/admin/table-analytics/category1"
+        defaultActiveKey="/app/admin/table-analytics/spp"
       >
         <Nav.Item>
           <Nav.Link eventKey="/app/admin">
@@ -34,8 +34,23 @@ const Header = ({ restaurantName, logo, user }) => {
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="/app/admin/table-analytics/category1">
-            Table Analytics
+          <Nav.Link eventKey="/app/admin/table-analytics/spp">
+            Sales Per Person
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="/app/admin/table-analytics/sph">
+            Sales Per Hour
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="/app/admin/table-analytics/ts">
+            Time Spent
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="/app/admin/table-analytics/tp">
+            Tip Percentage
           </Nav.Link>
         </Nav.Item>
       </Nav>
@@ -100,16 +115,11 @@ const Header = ({ restaurantName, logo, user }) => {
       <Nav
         variant="tab"
         onSelect={(key) => navigate(key)}
-        defaultActiveKey="/app/admin/sales-report/category1"
+        defaultActiveKey="/app/admin/sales-report/sales"
       >
         <Nav.Item>
           <Nav.Link eventKey="/app/admin">
             <XSquare fontSize={24} />
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/sales-report/category1">
-            Sales Graph
           </Nav.Link>
         </Nav.Item>
       </Nav>
