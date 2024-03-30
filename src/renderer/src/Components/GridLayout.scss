@@ -12,5 +12,10 @@
 }
 
 .grid-item {
+  user-select: none;
   color: $white;
+}
+
+.grid-item:hover {
+  cursor: pointer;
 }
