@@ -30,12 +30,12 @@ const Header = ({ restaurantName, logo, user }) => {
       >
         <Nav.Item>
           <Nav.Link eventKey="/app/admin">
-            <XSquare fontSize={24} />
+            <XSquare />
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="/app/admin/table-analytics/spp">
-            Sales Per Person 
+            Sales Per Person
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -45,7 +45,7 @@ const Header = ({ restaurantName, logo, user }) => {
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="/app/admin/table-analytics/ts">
-            Time Spent 
+            Time Spent
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -63,7 +63,7 @@ const Header = ({ restaurantName, logo, user }) => {
       >
         <Nav.Item>
           <Nav.Link eventKey="/app/admin">
-            <XSquare fontSize={24} />
+            <XSquare />
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -91,7 +91,7 @@ const Header = ({ restaurantName, logo, user }) => {
       >
         <Nav.Item>
           <Nav.Link eventKey="/app/admin">
-            <XSquare fontSize={24} />
+            <XSquare />
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -132,7 +132,7 @@ const Header = ({ restaurantName, logo, user }) => {
       >
         <Nav.Item>
           <Nav.Link eventKey="/app/admin">
-            <XSquare fontSize={24} />
+            <XSquare />
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -210,7 +210,12 @@ const Header = ({ restaurantName, logo, user }) => {
               <Nav.Link eventKey="table">Table</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="admin">Administrator</Nav.Link>
+              <Nav.Link
+                active={location.pathname.includes("/app/admin")}
+                eventKey="admin"
+              >
+                Administrator
+              </Nav.Link>
             </Nav.Item>
           </Nav>
         )}
