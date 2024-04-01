@@ -41,12 +41,12 @@ const TableMangement = ({ canEdit = false, user }) => {
   }, []);
 
   const handleTableClick = (tableID) => {
-    if (activeTables.includes(tableID)) {
-      sendSQL(
-        `SELECT * FROM transaction_history WHERE table_id=${tableID} AND end_time IS NULL`
-      ).then((data) => navigate(`/app/table/${data[0].id}`));
-    } else {
-      if (!canEdit) {
+    if (!canEdit) {
+      if (activeTables.includes(tableID)) {
+        sendSQL(
+          `SELECT * FROM transaction_history WHERE table_id=${tableID} AND end_time IS NULL`
+        ).then((data) => navigate(`/app/table/${data[0].id}`));
+      } else {
         setShowNewTableModal(true);
         setCurrentTable(tableID);
       }
