@@ -105,6 +105,16 @@ const runInsert = async (event, command) => {
   });
 };
 
+const closeDB = () => {
+  if (!dbClosed) {
+    db.close((err) => {
+      if (err) console.error("Error close database:", err);
+      else console.log("Database closed successfully.");
+      dbClosed = true;
+    });
+  }
+};
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
@@ -123,11 +133,6 @@ function createWindow() {
   //   mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
   mainWindow.loadURL("http://localhost:5173");
   mainWindow.on("closed", () => {
-    if (!dbClosed) {
-      // Only close the database if it hasn't been closed already
-      db.close();
-      dbClosed = true; // Set the flag to indicate that the database is closed
-    }
     mainWindow = null;
   });
 }
@@ -144,11 +149,6 @@ app.whenReady().then(() => {
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
-    if (!dbClosed) {
-      // Only close the database if it hasn't been closed already
-      db.close();
-      dbClosed = true; // Set the flag to indicate that the database is closed
-    }
     app.quit();
   }
 });
