@@ -87,7 +87,7 @@ const Header = ({ restaurantName, logo, user }) => {
       <Nav
         variant="tab"
         onSelect={(key) => navigate(key)}
-        defaultActiveKey="/app/admin/table-management/category1"
+        defaultActiveKey="/app/admin/table-management"
       >
         <Nav.Item>
           <Nav.Link eventKey="/app/admin">
@@ -95,18 +95,8 @@ const Header = ({ restaurantName, logo, user }) => {
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="/app/admin/table-management/category1">
-            Category 1
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/table-management/category2">
-            Category 2
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/table-management/category3">
-            Category 3
+          <Nav.Link eventKey="/app/admin/table-management">
+            Table Management
           </Nav.Link>
         </Nav.Item>
       </Nav>
