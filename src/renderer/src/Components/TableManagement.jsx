@@ -63,13 +63,6 @@ const TableMangement = ({ canEdit = false, user }) => {
     sendSQL(
       `UPDATE tables SET coords='${ui.x},${ui.y}' WHERE id=${ui.node.attributes["data-tableid"].value}`
     );
-    // console.log(
-    //   `(${targetBounds.left}, ${targetBounds.right}) (${targetBounds.top}, ${targetBounds.bottom})`
-    // );
-
-    // console.log(
-    //   `(${draggableBounds.left}, ${draggableBounds.right}) (${draggableBounds.top}, ${draggableBounds.bottom})`
-    // );
 
     if (
       draggableBounds.left < targetBounds.right &&
@@ -103,13 +96,14 @@ const TableMangement = ({ canEdit = false, user }) => {
     );
   };
 
-  const createTransaction = (patronCount, tableID) => {
-    console.log(typeof user.pin);
-    insertSQL(
+  const createTransaction = async (patronCount, tableID) => {
+    const resp = await insertSQL(
       `INSERT INTO transaction_history (patron_count, server_id, table_id, arrival_time, date) VALUES(${patronCount}, '${
         user.pin
       }', ${tableID}, '${moment().toISOString()}', '${moment().toISOString()}');`
-    ).then((data) => console.log(data));
+    );
+
+    return resp;
   };
 
   return (
@@ -118,8 +112,11 @@ const TableMangement = ({ canEdit = false, user }) => {
         modalTitle="Patron Count"
         show={showNewTableModal}
         setShow={setShowNewTableModal}
-        stateHandler={(value) => {
-          if (currentTable) createTransaction(value, currentTable);
+        stateHandler={async (value) => {
+          if (currentTable) {
+            const response = await createTransaction(value, currentTable);
+            navigate(`/app/table/${response.lastID}`);
+          }
           setShowNewTableModal(false);
         }}
       />
@@ -136,7 +133,6 @@ const TableMangement = ({ canEdit = false, user }) => {
       {items.map((table, index) => (
         <Draggable
           key={table.id}
-          //   bounds="parent"
           defaultPosition={{
             x: parseInt(table.coords.split(",")[0]),
             y: parseInt(table.coords.split(",")[1]),
