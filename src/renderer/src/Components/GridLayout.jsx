@@ -24,7 +24,7 @@ function GridLayout({ data, onItemSelect }) {
           {/* iterate over each item in a chunk to turn into a col */}
           {chunk.map((item, colIndex) => (
             <Col
-              className="grid-col d-flex align-items-center justify-content-center"
+              className="grid-col d-flex align-items-center justify-content-center grid-item"
               key={`${rowIndex}-${colIndex}`}
               onClick={() => onItemSelect(item)}
             >
