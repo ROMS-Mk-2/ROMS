@@ -24,7 +24,7 @@ const runQuery = (query) => {
 const initializeDatabase = async () => {
   await runQuery(`
     CREATE TABLE IF NOT EXISTS employees (
-      pin INTEGER PRIMARY KEY NOT NULL,
+      pin TEXT PRIMARY KEY NOT NULL,
       first_name TEXT NOT NULL,
       last_name TEXT NOT NULL,
       authority_level INTEGER NOT NULL
@@ -33,6 +33,7 @@ const initializeDatabase = async () => {
     CREATE TABLE IF NOT EXISTS menu (
       id INTEGER PRIMARY KEY NOT NULL,
       name TEXT NOT NULL,
+      category TEXT NOT NULL,
       price DOUBLE NOT NULL,
       image_link TEXT,
       description TEXT,
@@ -41,7 +42,8 @@ const initializeDatabase = async () => {
   await runQuery(`
     CREATE TABLE IF NOT EXISTS tables (
       id INTEGER PRIMARY KEY NOT NULL,
-      seating_size INTEGER NOT NULL
+      seating_size INTEGER NOT NULL,
+      coords TEXT NOT NULL
     );`);
   await runQuery(`
     CREATE TABLE IF NOT EXISTS transaction_history (
@@ -96,7 +98,7 @@ function createWindow() {
     width: 1280,
     height: 720,
     // FOR FULLSCREEN
-    // fullscreen: true, 
+    // fullscreen: true,
     webPreferences: {
       preload: path.join(__dirname, "../preload/preload.js"),
       nodeIntegration: true,
@@ -109,7 +111,8 @@ function createWindow() {
   //   mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
   mainWindow.loadURL("http://localhost:5173");
   mainWindow.on("closed", () => {
-    if (!dbClosed) { // Only close the database if it hasn't been closed already
+    if (!dbClosed) {
+      // Only close the database if it hasn't been closed already
       db.close();
       dbClosed = true; // Set the flag to indicate that the database is closed
     }
@@ -128,7 +131,8 @@ app.whenReady().then(() => {
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
-    if (!dbClosed) { // Only close the database if it hasn't been closed already
+    if (!dbClosed) {
+      // Only close the database if it hasn't been closed already
       db.close();
       dbClosed = true; // Set the flag to indicate that the database is closed
     }
