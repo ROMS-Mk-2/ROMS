@@ -6,24 +6,52 @@ import NumPadModal from "./NumPadModal";
 
 import "./TableManagement.scss";
 import Draggable from "react-draggable";
-import { sendSQL } from "../Utilities/SQLFunctions";
+import { insertSQL, sendSQL } from "../Utilities/SQLFunctions";
+import { useNavigate, useParams } from "react-router-dom";
+import { connect } from "react-redux";
+import moment from "moment";
 
-const TableItem = ({ name, tableID, ...props }) => {
+const TableItem = ({ name, tableID, active = false, canEdit, ...props }) => {
   return (
-    <Button {...props} className="table-item" data-tableid={tableID}>
+    <Button
+      {...props}
+      className="table-item"
+      data-tableid={tableID}
+      variant={!active ? "primary" : "danger"}
+    >
       {name}
     </Button>
   );
 };
 
-const TableMangement = ({ canEdit = false }) => {
+const TableMangement = ({ canEdit = false, user }) => {
   const [modalShow, setModalShow] = useState(false);
+  const [showNewTableModal, setShowNewTableModal] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [items, setItems] = useState([]);
+  const [activeTables, setActiveTables] = useState([]);
+  const [currentTable, setCurrentTable] = useState(null);
+
+  const navigate = useNavigate();
+  const params = useParams();
 
   useEffect(() => {
     sendSQL("SELECT * FROM tables").then((data) => setItems(data));
+    getActiveTables();
   }, []);
+
+  const handleTableClick = (tableID) => {
+    if (activeTables.includes(tableID)) {
+      sendSQL(
+        `SELECT * FROM transaction_history WHERE table_id=${tableID} AND end_time IS NULL`
+      ).then((data) => navigate(`/app/table/${data[0].id}`));
+    } else {
+      if (!canEdit) {
+        setShowNewTableModal(true);
+        setCurrentTable(tableID);
+      }
+    }
+  };
 
   const handleStop = (event, ui) => {
     setIsDragging(false);
@@ -66,8 +94,35 @@ const TableMangement = ({ canEdit = false }) => {
     sendSQL("SELECT * FROM tables").then((data) => setItems(data));
   };
 
+  const getActiveTables = (id) => {
+    sendSQL(`SELECT * FROM transaction_history WHERE end_time IS NULL`).then(
+      (data) => {
+        const temp = data.map((d) => d.table_id);
+        setActiveTables(temp);
+      }
+    );
+  };
+
+  const createTransaction = (patronCount, tableID) => {
+    console.log(typeof user.pin);
+    insertSQL(
+      `INSERT INTO transaction_history (patron_count, server_id, table_id, arrival_time, date) VALUES(${patronCount}, '${
+        user.pin
+      }', ${tableID}, '${moment().toISOString()}', '${moment().toISOString()}');`
+    ).then((data) => console.log(data));
+  };
+
   return (
     <div className="table-management-container">
+      <NumPadModal
+        modalTitle="Patron Count"
+        show={showNewTableModal}
+        setShow={setShowNewTableModal}
+        stateHandler={(value) => {
+          if (currentTable) createTransaction(value, currentTable);
+          setShowNewTableModal(false);
+        }}
+      />
       <NumPadModal
         show={modalShow}
         setShow={setModalShow}
@@ -90,7 +145,14 @@ const TableMangement = ({ canEdit = false }) => {
           onStop={handleStop}
           disabled={!canEdit}
         >
-          <TableItem name={table.seating_size} tableID={table.id} />
+          <TableItem
+            name={table.seating_size}
+            tableID={table.id}
+            setShowNewTableModal={setShowNewTableModal}
+            canEdit={canEdit}
+            active={activeTables.includes(table.id)}
+            onClick={() => handleTableClick(table.id)}
+          />
         </Draggable>
       ))}
 
@@ -118,4 +180,8 @@ const TableMangement = ({ canEdit = false }) => {
   );
 };
 
-export default TableMangement;
+const mapStateToProps = (state) => {
+  return { user: state.auth.user };
+};
+
+export default connect(mapStateToProps)(TableMangement);
