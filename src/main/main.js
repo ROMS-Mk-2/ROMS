@@ -52,10 +52,10 @@ const initializeDatabase = async () => {
       server_id TEXT NOT NULL,
       table_id INTEGER NOT NULL,
       arrival_time TIMESTAMP NOT NULL,
-      end_time TIMESTAMP NOT NULL,
-      pretip_bill DOUBLE NOT NULL,
-      final_bill DOUBLE NOT NULL,
-      tip DOUBLE NOT NULL,
+      end_time TIMESTAMP,
+      pretip_bill DOUBLE,
+      final_bill DOUBLE,
+      tip DOUBLE,
       date DATE NOT NULL,
       FOREIGN KEY (server_id) REFERENCES employees(pin),
       FOREIGN KEY (table_id) REFERENCES tables(id)
@@ -93,6 +93,18 @@ const handleSQLCommands = async (event, command) => {
   });
 };
 
+const runInsert = async (event, command) => {
+  return new Promise((resolve, reject) => {
+    db.run(command, function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve({ lastID: this.lastID, changes: this.changes });
+      }
+    });
+  });
+};
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
@@ -123,6 +135,7 @@ function createWindow() {
 app.whenReady().then(() => {
   ipcMain.handle("dialog:openFile", handleFileOpen);
   ipcMain.handle("sql:send", handleSQLCommands);
+  ipcMain.handle("sql:insert", runInsert);
   initializeDatabase().catch((err) => {
     console.error("Error initializing database:", err);
   });
