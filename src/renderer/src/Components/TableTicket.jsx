@@ -6,38 +6,16 @@ import { connect } from "react-redux";
 
 import EmptySvg from "../Assets/Empty.svg";
 import "./TableTicket.scss";
-import { useLocation, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { sendSQL } from "../Utilities/SQLFunctions";
 
 const TableTicket = ({ orderItems }) => {
-  const [ticketInfo, setTicketInfo] = useState(null);
-  const location = useLocation();
-  let params = useParams();
-  useEffect(() => {
-    if (params.transaction_id) {
-      sendSQL(
-        `SELECT * FROM transaction_history INNER JOIN employees ON transaction_history.server_id = employees.pin WHERE id=${params.transaction_id}`
-      ).then((data) => setTicketInfo(data[0]));
-    }
-    if (
-      !location.pathname.includes("/app/table/") ||
-      location.pathname === "/app/table"
-    ) {
-      setTicketInfo(null);
-    }
-  }, [params.transaction_id, location.pathname]);
   return (
     <Container className="ticket-container" fluid>
       <div className="ticket-header">
         <Row>
           <Col className="ticket-col-1" xs={4}>
-            TBL ID: {ticketInfo && ` ${ticketInfo.table_id}`}
+            TBL ID:
           </Col>
-          <Col className="ticket-col-1">
-            Server Name:
-            {ticketInfo && ` ${ticketInfo.first_name} ${ticketInfo.last_name}`}
-          </Col>
+          <Col className="ticket-col-1">Server Name:</Col>
         </Row>
         <Row>
           <Col className="ticket-col-2" xs={7}>

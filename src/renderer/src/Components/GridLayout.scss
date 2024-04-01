@@ -12,10 +12,7 @@
 }
 
 .grid-item {
-  user-select: none;
-  color: $white;
-}
-
-.grid-item:hover {
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
