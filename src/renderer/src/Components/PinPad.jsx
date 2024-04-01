@@ -18,7 +18,7 @@ const PinPad = ({ isAuth }) => {
   useEffect(() => {
     const fetchEmployee = async (queryPIN) => {
       const response = await sendSQL(
-        `SELECT * FROM employees WHERE pin='${queryPIN}'`
+        `SELECT * FROM employees WHERE pin=${queryPIN}`
       );
       return response;
     };
