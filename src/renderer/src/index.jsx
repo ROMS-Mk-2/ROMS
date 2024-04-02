@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 
 import AdminGrid from "./Layouts/AdminGrid.jsx";
 import App from "./App.jsx";
+import EmployeeManagement from "./Components/EmployeeManagement.jsx";
 import PinPad from "./Components/PinPad.jsx";
 import SalesGraph from "./Components/SalesGraph.jsx";
 import TableGraph from "./Components/TableGraph.jsx";
@@ -24,25 +25,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="table" element={<TableMangement />} />
             <Route path="table/:transaction_id" element={<TableGrid />} />
             <Route path="admin" element={<AdminGrid />}>
-              <Route path="employee-management">
-                <Route
-                  index
-                  element={<div>Category 1 - Employee Management</div>}
-                />
-                <Route
-                  path="category1"
-                  element={<div>Category 1 - Employee Management</div>}
-                />
-                <Route
-                  path="category2"
-                  element={<div>Category 2 - Employee Management</div>}
-                />
-                <Route
-                  path="category3"
-                  element={<div>Category 3 - Employee Management</div>}
-                />
-              </Route>
-
+              <Route
+                path="employee-management"
+                element={<EmployeeManagement />}
+              />
               <Route path="menu-management">
                 <Route
                   index

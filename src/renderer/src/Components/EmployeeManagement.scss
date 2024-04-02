@@ -1,0 +1,52 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+.employee-management-container {
+  position: relative;
+  height: 100%;
+
+  .employee-list-header {
+    .list-header-item {
+      background-color: $secondary;
+      color: $white;
+      height: 50px;
+      border: 1px $white solid;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .employee-item {
+    user-select: none;
+    .employee-col {
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px $gray-500 solid;
+
+      .form-check-input:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .employee-button-container {
+    display: flex;
+    justify-content: center;
+    .employee-button-group {
+      display: flex;
+      gap: 16px;
+      position: fixed;
+      bottom: 16px;
+
+      .icon-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        font-size: $lead-font-size;
+        font-weight: $lead-font-weight;
+        padding: 8px 16px;
+      }
+    }
+  }
+}
