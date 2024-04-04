@@ -1,4 +1,10 @@
 @import "node_modules/bootstrap/scss/bootstrap";
+.modal-body {
+  .required::after {
+    content: " *";
+    color: $danger;
+  }
+}
 .employee-management-container {
   position: relative;
   height: 100%;
