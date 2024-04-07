@@ -3,10 +3,6 @@ import { useDispatch, connect } from "react-redux";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 
 import GridLayout from "../Components/GridLayout";
-import {
-  setOrderedItem,
-  incrementItemQty,
-} from "../Utilities/Store/appReducer/appSlice";
 
 const AdminGrid = () => {
   const dispatch = useDispatch();
@@ -17,7 +13,7 @@ const AdminGrid = () => {
     const routeMap = {
       "Table Analytics": "/app/admin/table-analytics/spp",
       "Menu Management": "/app/admin/menu-management/category1",
-      "Table Management": "/app/admin/table-management/category1",
+      "Table Management": "/app/admin/table-management",
       "Sales Report": "/app/admin/sales-report/sales",
       "Employee Management": "/app/admin/employee-management/category1",
     };

@@ -9,9 +9,12 @@ import PinPad from "./Components/PinPad.jsx";
 import SalesGraph from "./Components/SalesGraph.jsx";
 import TableGraph from "./Components/TableGraph.jsx";
 import TableGrid from "./Layouts/TableGrid.jsx";
+import TableMangement from "./Components/TableManagement.jsx";
 import store from "./Utilities/Store/index.js";
 import "./index.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
+import MenuManagementGrid from "./Layouts/MenuManagementGrid.jsx";
+import FunctionGrid from "./Layouts/FunctionGrid.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -20,13 +23,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Routes>
           <Route path="/" element={<PinPad />} />
           <Route path="/app" element={<App />}>
-            <Route path="table" element={<TableGrid />} />
+            <Route path="table" element={<TableMangement />} />
+            <Route path="table/:transaction_id" element={<TableGrid />} />
+            <Route
+              path="/app/table/:transaction_id/functions"
+              element={<FunctionGrid />}
+            />
             <Route path="admin" element={<AdminGrid />}>
               <Route path="employee-management">
-                <Route
-                  index
-                  element={<div>Category 1 - Employee Management</div>}
-                />
                 <Route
                   path="category1"
                   element={<div>Category 1 - Employee Management</div>}
@@ -46,10 +50,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                   index
                   element={<div>Category 1 - Menu Management</div>}
                 />
-                <Route
-                  path="category1"
-                  element={<div>Category 1 - Menu Management</div>}
-                />
+                <Route path="category1" element={<MenuManagementGrid />} />
                 <Route
                   path="category2"
                   element={<div>Category 2 - Menu Management</div>}
@@ -60,32 +61,24 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 />
               </Route>
 
-              <Route path="table-management">
-                <Route
-                  index
-                  element={<div>Category 1 - Table Management</div>}
-                />
-                <Route
-                  path="category1"
-                  element={<div>Category 1 - Table Management</div>}
-                />
-                <Route
-                  path="category2"
-                  element={<div>Category 2 - Table Management</div>}
-                />
-                <Route
-                  path="category3"
-                  element={<div>Category 3 - Table Management</div>}
-                />
-              </Route>
+              <Route
+                path="table-management"
+                element={<TableMangement canEdit />}
+              />
 
               <Route path="sales-report">
                 <Route path="sales" element={<SalesGraph />} />
               </Route>
 
               <Route path="table-analytics">
-                <Route path="spp" element={<TableGraph statisticProp="SPP" />} />
-                <Route path="sph" element={<TableGraph statisticProp="SPH" />} />
+                <Route
+                  path="spp"
+                  element={<TableGraph statisticProp="SPP" />}
+                />
+                <Route
+                  path="sph"
+                  element={<TableGraph statisticProp="SPH" />}
+                />
                 <Route path="ts" element={<TableGraph statisticProp="TS" />} />
                 <Route path="tp" element={<TableGraph statisticProp="TP" />} />
               </Route>

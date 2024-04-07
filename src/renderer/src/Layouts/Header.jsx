@@ -6,17 +6,19 @@ import Image from "react-bootstrap/Image";
 import React from "react";
 import Nav from "react-bootstrap/Nav";
 import { XSquare } from "react-bootstrap-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import CustomDropdownToggle from "../Utilities/CustomDropdownToggle";
 import DefaultAvatar from "../Components/DefaultAvatar";
 import imgPlaceholder from "../Assets/11Ratio.png";
 import { logout } from "../Utilities/Store/authReducer/authSlice";
+import { useParams } from "react-router-dom";
 
 import "./Header.scss";
 
 const Header = ({ restaurantName, logo, user }) => {
+  const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -87,7 +89,7 @@ const Header = ({ restaurantName, logo, user }) => {
       <Nav
         variant="tab"
         onSelect={(key) => navigate(key)}
-        defaultActiveKey="/app/admin/table-management/category1"
+        defaultActiveKey="/app/admin/table-management"
       >
         <Nav.Item>
           <Nav.Link eventKey="/app/admin">
@@ -95,18 +97,8 @@ const Header = ({ restaurantName, logo, user }) => {
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="/app/admin/table-management/category1">
-            Category 1
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/table-management/category2">
-            Category 2
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/table-management/category3">
-            Category 3
+          <Nav.Link eventKey="/app/admin/table-management">
+            Table Management
           </Nav.Link>
         </Nav.Item>
       </Nav>
@@ -154,6 +146,29 @@ const Header = ({ restaurantName, logo, user }) => {
     ),
   };
 
+  const functionRoutes = {
+    "/app/table/:transaction_id/functions": (
+      <Nav
+        variant="tab"
+        onSelect={(key) => navigate(key)}
+        defaultActiveKey="/app/table/:transaction_id/functions"
+      >
+        <Nav.Item>
+          <Nav.Link eventKey={`/app/table/${params.transaction_id}`}>
+            <XSquare />
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey={`/app/table/${params.transaction_id}/functions`}>
+            Functions
+          </Nav.Link>
+        </Nav.Item>
+        {/* Add more dynamic function-related tabs as needed */}
+      </Nav>
+    ),
+    // You can add more function-related configurations here
+  };
+
   const navigateTo = (eventKey, event) => {
     navigate(eventKey);
   };
@@ -166,6 +181,10 @@ const Header = ({ restaurantName, logo, user }) => {
   const isAdminRoute = Object.keys(adminRoutes).some((route) =>
     location.pathname.startsWith(route)
   );
+
+  const isFunctionRoute = location.pathname.includes("/functions");
+
+  console.log(isFunctionRoute);
 
   return (
     <>
@@ -181,27 +200,43 @@ const Header = ({ restaurantName, logo, user }) => {
             <DropdownToggle as={CustomDropdownToggle}>
               <DefaultAvatar
                 className="avatar-icon"
-                fullName={"Corentin Favier"}
+                fullName={`${user.first_name} ${user.last_name}`}
                 width={50}
                 height={50}
               />
             </DropdownToggle>
-
             <DropdownMenu>
               <DropdownItem>View Profile</DropdownItem>
               <DropdownItem>Clock Out</DropdownItem>
-              <DropdownItem onClick={() => onLogout()}>Logout</DropdownItem>
+              <DropdownItem onClick={onLogout}>Logout</DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
 
         {isAdminRoute ? (
           <Nav variant="tabs" onSelect={(key) => navigate(key)}>
-            {Object.entries(adminRoutes).map(
-              ([route, navItems]) =>
-                location.pathname.startsWith(route) && (
-                  <React.Fragment key={route}>{navItems}</React.Fragment>
-                )
+            {Object.entries(adminRoutes).map(([route, navItems]) =>
+              location.pathname.startsWith(route) ? (
+                <React.Fragment key={route}>{navItems}</React.Fragment>
+              ) : null
+            )}
+          </Nav>
+        ) : isFunctionRoute ? (
+          <Nav variant="tabs" onSelect={(key) => navigate(key)}>
+            {Object.entries(functionRoutes).map(([route, navItems]) =>
+              location.pathname.startsWith(
+                route.replace(":transaction_id", params.transaction_id)
+              ) ? (
+                <React.Fragment key={route}>
+                  {React.cloneElement(navItems, {
+                    defaultActiveKey: location.pathname,
+                    onSelect: (key) =>
+                      navigate(
+                        key.replace(":transaction_id", params.transaction_id)
+                      ),
+                  })}
+                </React.Fragment>
+              ) : null
             )}
           </Nav>
         ) : (
@@ -210,10 +245,7 @@ const Header = ({ restaurantName, logo, user }) => {
               <Nav.Link eventKey="table">Table</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link
-                active={location.pathname.includes("/app/admin")}
-                eventKey="admin"
-              >
+              <Nav.Link eventKey="admin" disabled={user.authority_level < 2}>
                 Administrator
               </Nav.Link>
             </Nav.Item>
@@ -224,4 +256,8 @@ const Header = ({ restaurantName, logo, user }) => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+  return { user: state.auth.user };
+};
+
+export default connect(mapStateToProps)(Header);

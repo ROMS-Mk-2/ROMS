@@ -7,6 +7,7 @@ import { useDispatch, connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 import { login } from "../Utilities/Store/authReducer/authSlice";
+import { sendSQL } from "../Utilities/SQLFunctions";
 import "./PinPad.scss";
 
 const PinPad = ({ isAuth }) => {
@@ -15,14 +16,24 @@ const PinPad = ({ isAuth }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //TODO: Implement database user/PIN
-    if (pin === "0000") {
-      dispatch(login());
-    }
+    const fetchEmployee = async (queryPIN) => {
+      const response = await sendSQL(
+        `SELECT * FROM employees WHERE pin='${queryPIN}'`
+      );
+      return response;
+    };
 
-    if (pin.length >= 4) {
-      setIsValid(false);
-      onClear();
+    if (pin.length === 4) {
+      fetchEmployee(pin).then((data) => {
+        console.log(data);
+
+        if (data.length > 0) {
+          dispatch(login(data[0]));
+        }
+
+        setIsValid(false);
+        onClear();
+      });
     }
   }, [pin]);
 

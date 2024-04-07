@@ -24,7 +24,7 @@ const runQuery = (query) => {
 const initializeDatabase = async () => {
   await runQuery(`
     CREATE TABLE IF NOT EXISTS employees (
-      pin INTEGER PRIMARY KEY NOT NULL,
+      pin TEXT PRIMARY KEY NOT NULL,
       first_name TEXT NOT NULL,
       last_name TEXT NOT NULL,
       authority_level INTEGER NOT NULL
@@ -33,6 +33,7 @@ const initializeDatabase = async () => {
     CREATE TABLE IF NOT EXISTS menu (
       id INTEGER PRIMARY KEY NOT NULL,
       name TEXT NOT NULL,
+      category TEXT NOT NULL,
       price DOUBLE NOT NULL,
       image_link TEXT,
       description TEXT,
@@ -41,7 +42,8 @@ const initializeDatabase = async () => {
   await runQuery(`
     CREATE TABLE IF NOT EXISTS tables (
       id INTEGER PRIMARY KEY NOT NULL,
-      seating_size INTEGER NOT NULL
+      seating_size INTEGER NOT NULL,
+      coords TEXT NOT NULL
     );`);
   await runQuery(`
     CREATE TABLE IF NOT EXISTS transaction_history (
@@ -50,10 +52,10 @@ const initializeDatabase = async () => {
       server_id TEXT NOT NULL,
       table_id INTEGER NOT NULL,
       arrival_time TIMESTAMP NOT NULL,
-      end_time TIMESTAMP NOT NULL,
-      pretip_bill DOUBLE NOT NULL,
-      final_bill DOUBLE NOT NULL,
-      tip DOUBLE NOT NULL,
+      end_time TIMESTAMP,
+      pretip_bill DOUBLE,
+      final_bill DOUBLE,
+      tip DOUBLE,
       date DATE NOT NULL,
       FOREIGN KEY (server_id) REFERENCES employees(pin),
       FOREIGN KEY (table_id) REFERENCES tables(id)
@@ -91,12 +93,24 @@ const handleSQLCommands = async (event, command) => {
   });
 };
 
+const runInsert = async (event, command) => {
+  return new Promise((resolve, reject) => {
+    db.run(command, function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve({ lastID: this.lastID, changes: this.changes });
+      }
+    });
+  });
+};
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
     // FOR FULLSCREEN
-    // fullscreen: true, 
+    // fullscreen: true,
     webPreferences: {
       preload: path.join(__dirname, "../preload/preload.js"),
       nodeIntegration: true,
@@ -109,7 +123,8 @@ function createWindow() {
   //   mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
   mainWindow.loadURL("http://localhost:5173");
   mainWindow.on("closed", () => {
-    if (!dbClosed) { // Only close the database if it hasn't been closed already
+    if (!dbClosed) {
+      // Only close the database if it hasn't been closed already
       db.close();
       dbClosed = true; // Set the flag to indicate that the database is closed
     }
@@ -120,6 +135,7 @@ function createWindow() {
 app.whenReady().then(() => {
   ipcMain.handle("dialog:openFile", handleFileOpen);
   ipcMain.handle("sql:send", handleSQLCommands);
+  ipcMain.handle("sql:insert", runInsert);
   initializeDatabase().catch((err) => {
     console.error("Error initializing database:", err);
   });
@@ -128,7 +144,8 @@ app.whenReady().then(() => {
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
-    if (!dbClosed) { // Only close the database if it hasn't been closed already
+    if (!dbClosed) {
+      // Only close the database if it hasn't been closed already
       db.close();
       dbClosed = true; // Set the flag to indicate that the database is closed
     }
