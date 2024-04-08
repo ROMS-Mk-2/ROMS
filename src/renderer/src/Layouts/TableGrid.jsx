@@ -68,19 +68,21 @@ const TableGrid = ({ orderedItems }) => {
   };
 
   const handleItemClick = (selectedItem) => {
-    let updatedItems = { ...orderedItems };
-
-    if (updatedItems[selectedItem.name]) {
+    // Check if the item already exists in the orderedItems
+    if (orderedItems[selectedItem.name]) {
       dispatch(incrementItemQty(selectedItem.name));
     } else {
-      const updatedItems = {
-        ...orderedItems,
-        [selectedItem.name]: {
-          quantity: 1,
-          price: selectedItem.price,
-        },
-      };
-      dispatch(setOrderedItem(updatedItems));
+      // Correctly dispatch setOrderedItem with the name and details of the selected item
+      dispatch(
+        setOrderedItem({
+          name: selectedItem.name,
+          details: {
+            quantity: 1,
+            price: selectedItem.price,
+            ordered: false, // Assuming you want to track if the item has been ordered yet
+          },
+        })
+      );
     }
   };
 

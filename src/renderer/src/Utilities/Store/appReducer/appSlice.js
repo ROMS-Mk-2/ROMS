@@ -11,13 +11,21 @@ const appSlice = createSlice({
   initialState,
   reducers: {
     setOrderedItem(state, action) {
-      state.orderedItem = action.payload;
+      const { name, details } = action.payload;
+      // Ensure details include ordered status
+      state.orderedItem[name] = { ...details };
     },
     incrementItemQty(state, action) {
-      state.orderedItem[action.payload].quantity += 1;
+      const itemName = action.payload;
+      // Increment in orderedItem (to-be-ordered items)
+      if (state.orderedItem[itemName]) {
+        state.orderedItem[itemName].quantity += 1;
+      }
+      // Optionally handle increment for tableOrderedItems if needed
     },
     decrementItemQty(state, action) {
       const itemName = action.payload;
+      // Decrement in orderedItem (to-be-ordered items)
       if (
         state.orderedItem[itemName] &&
         state.orderedItem[itemName].quantity > 1
@@ -26,6 +34,7 @@ const appSlice = createSlice({
       } else {
         delete state.orderedItem[itemName];
       }
+      // Optionally handle decrement for tableOrderedItems if needed
     },
     editItemQty(state, action) {
       state.orderedItem[action.payload.name] = action.payload.newQty;
@@ -37,6 +46,11 @@ const appSlice = createSlice({
     },
     clearOrderedItems(state) {
       state.orderedItem = {};
+    },
+    selectItem(state, action) {
+      if (!state.selectedItems.includes(action.payload)) {
+        state.selectedItems.push(action.payload);
+      }
     },
     selectItem(state, action) {
       if (!state.selectedItems.includes(action.payload)) {
@@ -57,11 +71,18 @@ const appSlice = createSlice({
     clearTableOrderedItems(state) {
       state.tableOrderedItems = {};
     },
-    markItemsAsOrdered(state, action) {
-      state.tableOrderedItems = {
-        ...state.tableOrderedItems,
-        ...action.payload,
-      };
+    markItemsAsOrdered(state) {
+      // Merge orderedItem into tableOrderedItems
+      Object.entries(state.orderedItem).forEach(([key, value]) => {
+        if (state.tableOrderedItems[key]) {
+          // If the item exists in tableOrderedItems, update quantity
+          state.tableOrderedItems[key].quantity += value.quantity;
+        } else {
+          // Otherwise, add the item to tableOrderedItems
+          state.tableOrderedItems[key] = { ...value, ordered: true };
+        }
+      });
+      // Reset orderedItem and selectedItems as they are now ordered
       state.orderedItem = {};
       state.selectedItems = [];
     },
