@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, Outlet } from "react-router-dom";
 import GridLayout from "../Components/GridLayout";
 import { useSelector } from "react-redux";
-import { Col } from "react-bootstrap";
+import { Col, Toast, ToastContainer } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import EditQuantityModal from "../Components/EditQuantityModal";
 import { sendSQL } from "../Utilities/SQLFunctions";
@@ -18,6 +18,7 @@ import {
 import EndTransactionModal from "../Components/EndTransactionModal";
 
 const FunctionGrid = () => {
+  const [toast, setToast] = useState({ show: false, items: [], type: "" });
   const [showEditModal, setShowEditModal] = useState(false);
   const [showEndTransactionModal, setShowEndTransactionModal] = useState(false);
   const [editItemDetails, setEditItemDetails] = useState(null);
@@ -95,6 +96,8 @@ const FunctionGrid = () => {
         }
       }
     });
+
+    setToast((prev) => ({ show: true, items: selectedItems, type: "void" }));
     dispatch(clearSelectedItems());
   };
 
@@ -127,6 +130,8 @@ const FunctionGrid = () => {
       }
     }
 
+    setToast((prev) => ({ show: true, items: selectedItems, type: "comp" }));
+
     dispatch(clearSelectedItems());
   };
 
@@ -152,6 +157,24 @@ const FunctionGrid = () => {
 
   return (
     <>
+      <ToastContainer position="top-end" style={{ padding: "8px" }}>
+        {toast.items.map((item) => (
+          <Toast
+            onClose={() => {
+              setToast((prev) => ({
+                show: false,
+                items: prev.items.filter((prevItem) => item !== prevItem),
+              }));
+            }}
+            show={toast.show}
+            autohide
+          >
+            <Toast.Body>{`${item.split("-")[0]} has been ${
+              toast.type
+            }ed.`}</Toast.Body>
+          </Toast>
+        ))}
+      </ToastContainer>
       <GridLayout
         data={functionItems}
         onItemSelect={handleFunctionClick}
