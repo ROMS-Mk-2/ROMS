@@ -1,9 +1,11 @@
 import { app, BrowserWindow, dialog, ipcMain } from "electron/main";
 import * as path from "path";
+import * as fs from "node:fs";
 const sqlite3 = require("sqlite3").verbose();
 
 let mainWindow;
 const dbPath = path.join(app.getPath("userData"), "roms.db"); //TODO: Implement Production Path
+const initialLaunch = !fs.existsSync("./roms.db");
 console.log(dbPath);
 const db = new sqlite3.Database("./roms.db");
 
@@ -27,7 +29,8 @@ const initializeDatabase = async () => {
       pin TEXT PRIMARY KEY NOT NULL,
       first_name TEXT NOT NULL,
       last_name TEXT NOT NULL,
-      authority_level INTEGER NOT NULL
+      authority_level INTEGER NOT NULL,
+      root_password TEXT
     );`);
   await runQuery(`
     CREATE TABLE IF NOT EXISTS menu (
@@ -69,6 +72,12 @@ const initializeDatabase = async () => {
       FOREIGN KEY (transaction_id) REFERENCES transaction_history(id),
       FOREIGN KEY (menu_item) REFERENCES menu(id)
     );`);
+
+  if (initialLaunch) {
+    await runQuery(
+      `INSERT INTO employees (pin, first_name, last_name, authority_level) VALUES('0000', 'Root', 'User', 4)`
+    );
+  }
 };
 
 const handleFileOpen = async () => {
@@ -129,7 +138,7 @@ function createWindow() {
   });
   mainWindow.webContents.openDevTools();
   // TO MAXIMIZE WINDOW (NOT FULLSCREEN)
-  mainWindow.maximize();
+  // mainWindow.maximize();
   //   mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
   mainWindow.loadURL("http://localhost:5173");
   mainWindow.on("closed", () => {
