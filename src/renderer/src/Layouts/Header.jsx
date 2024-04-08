@@ -163,10 +163,8 @@ const Header = ({ restaurantName, logo, user }) => {
             Functions
           </Nav.Link>
         </Nav.Item>
-        {/* Add more dynamic function-related tabs as needed */}
       </Nav>
     ),
-    // You can add more function-related configurations here
   };
 
   const navigateTo = (eventKey, event) => {

@@ -55,14 +55,14 @@ const TableTicket = ({ orderItems }) => {
 
   const fetchUpdatedOrders = async (transactionId) => {
     const updatedOrdersResponse = await sendSQL(`
-  SELECT 
-    orders.menu_item, 
-    menu.name, 
-    orders.quantity, 
-    menu.price
-  FROM orders 
-  JOIN menu ON orders.menu_item = menu.id 
-  WHERE orders.transaction_id = ${transactionId}
+      SELECT 
+        orders.menu_item, 
+        menu.name, 
+        orders.quantity, 
+        orders.transaction_price
+      FROM orders 
+      JOIN menu ON orders.menu_item = menu.id 
+      WHERE orders.transaction_id = ${transactionId}
 `);
 
     const updatedOrderedItems = updatedOrdersResponse.reduce(
@@ -71,7 +71,7 @@ const TableTicket = ({ orderItems }) => {
         [item.name]: {
           menu_item: item.menu_item,
           quantity: item.quantity,
-          price: item.price,
+          price: item.transaction_price,
           ordered: true,
         },
       }),

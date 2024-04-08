@@ -84,7 +84,6 @@ function MenuManagementGrid({ data, onItemUpdate }) {
         return newItems;
       }
 
-      // Swap logic remains the same
       const newItems = [...prevItems];
       const temp = newItems[draggedIndex];
       newItems[draggedIndex] = newItems[targetIndex];
