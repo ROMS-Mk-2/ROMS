@@ -143,6 +143,10 @@ const Header = ({ restaurantName, logo, user }) => {
     navigate("/");
   };
 
+  const launchSim = () => {
+    dispatch(navigate("/app/game"));
+  };
+
   const isAdminRoute = Object.keys(adminRoutes).some((route) =>
     location.pathname.startsWith(route)
   );
@@ -188,6 +192,9 @@ const Header = ({ restaurantName, logo, user }) => {
           <Nav variant="tabs" defaultActiveKey="table" onSelect={navigateTo}>
             <Nav.Item>
               <Nav.Link eventKey="table">Table</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="game">Simulation</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="admin" disabled={user.authority_level < 2}>
