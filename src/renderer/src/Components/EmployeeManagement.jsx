@@ -90,7 +90,6 @@ const EmployeeModal = ({
     sendSQL(`SELECT * FROM employees WHERE pin='${editUser}'`).then(
       (response) => {
         if (response.length > 0) {
-          console.log(response);
           const employee = response[0];
           setUser(employee);
           setNewEmployee({
@@ -161,10 +160,8 @@ const EmployeeModal = ({
       } else {
         if (isEditting) {
           const response = await sendSQL(updateSQLCommand);
-          console.log(response);
         } else {
           const response = await insertSQL(insertSQLCommand);
-          console.log(response);
         }
         setShow({ show: false, isEdit: false });
         setCheckedEmployees([]);
@@ -354,11 +351,6 @@ const EmployeeManagement = ({ user }) => {
     getEmployees();
   }, [showModal]);
 
-  console.log(showModal);
-  useEffect(() => {
-    console.log(checkedEmployees.map((employee) => `'${employee}'`).join(","));
-  }, [checkedEmployees]);
-
   const getEmployees = async () => {
     const response = await sendSQL("SELECT * FROM employees ORDER BY pin");
     setEmployees(response);
@@ -370,7 +362,6 @@ const EmployeeManagement = ({ user }) => {
         .map((employee) => `'${employee}'`)
         .join(",")})`
     );
-    console.log(await response);
     setEmployees(
       employees.filter((employee) => !checkedEmployees.includes(employee.pin))
     );
@@ -394,28 +385,21 @@ const EmployeeManagement = ({ user }) => {
         <Col className="list-header-item">Last Name</Col>
         <Col className="list-header-item">Authority</Col>
       </Row>
-      {employees.map((employee) => {
-        console.log(
-          `${user.authority_level} <= ${employee.authority_level} ${
+      {employees.map((employee) => (
+        <EmployeeListItem
+          key={employee.pin}
+          pin={employee.pin}
+          first_name={employee.first_name}
+          last_name={employee.last_name}
+          authority_level={employee.authority_level}
+          checkedEmployees={checkedEmployees}
+          setCheckedEmployees={setCheckedEmployees}
+          disableCheck={
+            user.pin === employee.pin ||
             user.authority_level <= employee.authority_level
-          }`
-        );
-        return (
-          <EmployeeListItem
-            key={employee.pin}
-            pin={employee.pin}
-            first_name={employee.first_name}
-            last_name={employee.last_name}
-            authority_level={employee.authority_level}
-            checkedEmployees={checkedEmployees}
-            setCheckedEmployees={setCheckedEmployees}
-            disableCheck={
-              user.pin === employee.pin ||
-              user.authority_level <= employee.authority_level
-            }
-          />
-        );
-      })}
+          }
+        />
+      ))}
       <div className="employee-button-container">
         <div className="employee-button-group">
           {checkedEmployees.length === 0 && (
