@@ -1,13 +1,17 @@
-import { app, BrowserWindow, dialog, ipcMain } from "electron/main";
-import * as path from "path";
-import * as fs from "node:fs";
+// import { app, BrowserWindow, dialog, ipcMain } from "electron/main";
+// import * as path from "path";
+// import * as fs from "node:fs";
+const { app, BrowserWindow, dialog, ipcMain } = require("electron/main");
+if (require("electron-squirrel-startup")) app.quit();
+const path = require("path");
+const fs = require("node:fs");
 const sqlite3 = require("sqlite3").verbose();
 
 let mainWindow;
 const dbPath = path.join(app.getPath("userData"), "roms.db"); //TODO: Implement Production Path
-const initialLaunch = !fs.existsSync("./roms.db");
+const initialLaunch = !fs.existsSync(dbPath);
 console.log(dbPath);
-const db = new sqlite3.Database("./roms.db");
+const db = new sqlite3.Database(dbPath);
 
 let dbClosed = false; // Add a flag to track if the database is closed
 
@@ -139,8 +143,8 @@ function createWindow() {
   mainWindow.webContents.openDevTools();
   // TO MAXIMIZE WINDOW (NOT FULLSCREEN)
   // mainWindow.maximize();
-  //   mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
-  mainWindow.loadURL("http://localhost:5173");
+  mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
+  // mainWindow.loadURL("http://localhost:5173");
   mainWindow.on("closed", () => {
     mainWindow = null;
   });

@@ -2,16 +2,20 @@
   "name": "romsmk2",
   "private": true,
   "version": "0.0.0",
-  "main": "./out/main/main.js",
+  "main": "./build/main/main.js",
   "scripts": {
     "dev": "electron-vite dev -w",
-    "build": "electron-vite build",
+    "build": "electron-vite build --outDir=build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "electron-vite preview"
+    "preview": "electron-vite preview",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
     "bootstrap": "^5.3.3",
+    "electron-squirrel-startup": "^1.0.0",
     "moment": "^2.30.1",
     "plotly.js": "^2.30.0",
     "react": "^18.2.0",
@@ -27,6 +31,13 @@
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^7.3.1",
+    "@electron-forge/maker-deb": "^7.3.1",
+    "@electron-forge/maker-rpm": "^7.3.1",
+    "@electron-forge/maker-squirrel": "^7.3.1",
+    "@electron-forge/maker-zip": "^7.3.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.3.1",
+    "@electron-forge/plugin-fuses": "^7.3.1",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
