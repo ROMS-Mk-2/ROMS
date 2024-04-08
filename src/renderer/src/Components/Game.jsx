@@ -12,18 +12,13 @@ const Game = () => {
     codeUrl: "/unity/Builds.wasm",
   });
 
-  function sendZeroToUnity() {
+  function sendDataToUnity(data) {
+    var numToString = '' + data;
+    sendMessage("Manager", "addItemToCart", numToString);
+  }
+
+  function checkoutCustomers() {
     var numToString = '' + 0;
-    sendMessage("Manager", "ReceiveData", numToString);
-  }
-
-  function sendOneToUnity() {
-    var numToString = '' + 1;
-    sendMessage("Manager", "ReceiveData", numToString);
-  }
-
-  function sendTwoToUnity() {
-    var numToString = '' + 2;
     sendMessage("Manager", "ReceiveData", numToString);
   }
   
@@ -40,10 +35,8 @@ const Game = () => {
 
 
   return (
-    //This is hacky and messy, I think, but it works to hide the ticket on the side, if we need it.
+    //Hides the ticket on the side
     //Also centers all content
-    //Please let me know if there is a better way
-    //I am sorry lol
     <div style={{ position: 'relative' }}>
       <div
       style={{
@@ -57,18 +50,33 @@ const Game = () => {
       }}
       > 
     </div>
-      
-    <div> 
-      <div>
-          <button onClick={sendZeroToUnity}>Hamburger</button>
-          <button onClick={sendOneToUnity}>Pizza</button>
-          <button onClick={sendTwoToUnity}>Hotdog</button>
+
+    <div
+      style={{
+        position: 'absolute',
+        top: '25%',
+        left: '25%',
+        backgroundColor: 'rgba(255, 255, 255, 1)',
+        width: '70vw',
+        height: '85vh',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1,
+      }}
+    > 
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <button onClick={() => sendDataToUnity(0)}>Hot Dog</button>
+          <button onClick={() => sendDataToUnity(1)}>Hamburger</button>
+          <button onClick={() => sendDataToUnity(2)}>Pizza</button>
+          <button onClick={() => sendDataToUnity(3)}>Chicken</button>
+          <button onClick={() => sendDataToUnity(4)}>Fish</button>
+          <button onClick={() => sendDataToUnity(5)}>Fry</button>
       </div>
-      <Unity unityProvider={unityProvider}/>
-      <div>
-          <p>{`Data: ${data}!`}</p>
+      <Unity unityProvider={unityProvider} style={{ width: "100%" }} />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <button onClick={() => checkoutCustomers(data)}>Checkout Customers</button>
       </div>
-          
+
       </div>
     </div>
 
