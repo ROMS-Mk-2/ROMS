@@ -3,36 +3,153 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import { Form, Modal, ToastContainer, Toast } from "react-bootstrap";
 import { useDispatch, connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 import { login } from "../Utilities/Store/authReducer/authSlice";
-import { sendSQL } from "../Utilities/SQLFunctions";
+import { insertSQL, sendSQL } from "../Utilities/SQLFunctions";
 import "./PinPad.scss";
 
+const PasswordModal = ({
+  show,
+  setShow,
+  rootFirst,
+  pin,
+  loginEmployee,
+  onClear,
+  setShowToast,
+}) => {
+  const [password, setPassword] = useState("");
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [validation, setValidation] = useState({
+    password: { invalid: false, msg: "" },
+  });
+
+  const clearValidation = () => {
+    setValidation({
+      password: { invalid: false, msg: "" },
+    });
+  };
+
+  const authenticateRoot = async () => {
+    setFormSubmitted(true);
+    if (pin.length === 4) {
+      const response = await sendSQL(
+        `SELECT * FROM employees WHERE pin='${pin}'`
+      );
+
+      if (response.length > 0) {
+        if (response[0].root_password === password) {
+          loginEmployee(response[0]);
+          onClear();
+          clearValidation();
+          setShow(false);
+        } else {
+          setValidation({
+            password: { invalid: true, msg: "Invalid password!" },
+          });
+        }
+      }
+    }
+  };
+
+  const updateRoot = async () => {
+    setFormSubmitted(true);
+    if (password.length >= 10) {
+      if (pin.length === 4) {
+        const response = await insertSQL(
+          `UPDATE employees SET root_password='${password}' WHERE pin='${pin}'`
+        );
+        onClear();
+        clearValidation();
+        setShow(false);
+        setShowToast(true);
+      }
+    } else {
+      setValidation({
+        password: {
+          invalid: true,
+          msg: "Password needs to be > 10 characters.",
+        },
+      });
+    }
+  };
+
+  return (
+    <Modal
+      show={show}
+      onHide={() => {
+        onClear();
+        setShow(false);
+        clearValidation();
+      }}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>
+          {rootFirst ? "Create" : "Enter"} Root Password
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form noValidate>
+          <Form.Group>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              isInvalid={formSubmitted && validation.password.invalid}
+              required
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <Form.Control.Feedback type="invalid">
+              {validation.password.msg}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        {rootFirst ? (
+          <Button onClick={updateRoot}>Set Password</Button>
+        ) : (
+          <Button onClick={authenticateRoot}>Login</Button>
+        )}
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
 const PinPad = ({ isAuth }) => {
+  const [showToast, setShowToast] = useState(false);
+  const [showRootModal, setShowRootModal] = useState(false);
+  const [rootFirst, setRootFirst] = useState(false);
   const [pin, setPin] = useState("");
   const [isValid, setIsValid] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setRootFirst(false);
     const fetchEmployee = async (queryPIN) => {
       const response = await sendSQL(
-        `SELECT * FROM employees WHERE pin=${queryPIN}`
+        `SELECT * FROM employees WHERE pin='${queryPIN}'`
       );
       return response;
     };
 
     if (pin.length === 4) {
       fetchEmployee(pin).then((data) => {
-        console.log(data);
-
         if (data.length > 0) {
-          dispatch(login(data[0]));
+          if (data[0].pin === "0000") {
+            if (!data[0].root_password) {
+              setRootFirst(true);
+            }
+            setShowRootModal(true);
+          } else {
+            loginEmployee(data[0]);
+            onClear();
+          }
+        } else {
+          onClear();
+          setIsValid(false);
         }
-
-        setIsValid(false);
-        onClear();
       });
     }
   }, [pin]);
@@ -50,10 +167,28 @@ const PinPad = ({ isAuth }) => {
     setPin("");
   };
 
+  const loginEmployee = (user) => {
+    dispatch(login(user));
+  };
+
   return isAuth ? (
     <Navigate to="/app/table" />
   ) : (
     <Container className="pin-pad-container">
+      <ToastContainer position="top-end" style={{ padding: "8px" }}>
+        <Toast onClose={() => setShowToast(false)} show={showToast} autohide>
+          <Toast.Body>Root User Password Updated.</Toast.Body>
+        </Toast>
+      </ToastContainer>
+      <PasswordModal
+        show={showRootModal}
+        setShow={setShowRootModal}
+        rootFirst={rootFirst}
+        pin={pin}
+        loginEmployee={loginEmployee}
+        onClear={onClear}
+        setShowToast={setShowToast}
+      />
       <div className="ellipse-container">
         <div
           className={`ellipse-pin ${pin.length > 0 && "pin-entered"} ${
