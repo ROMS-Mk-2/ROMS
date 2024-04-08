@@ -19,7 +19,7 @@ const AdminGrid = () => {
       "Menu Management": "/app/admin/menu-management/category1",
       "Table Management": "/app/admin/table-management",
       "Sales Report": "/app/admin/sales-report/sales",
-      "Employee Management": "/app/admin/employee-management/category1",
+      "Employee Management": "/app/admin/employee-management",
     };
 
     const route = routeMap[selectedItem.name];
