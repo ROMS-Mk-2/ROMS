@@ -11,6 +11,8 @@
 
   .employee-list-header {
     .list-header-item {
+      display: flex;
+      justify-content: center;
       background-color: $secondary;
       color: $white;
       height: 50px;
