@@ -69,6 +69,7 @@ const EmployeeModal = ({
   setCheckedEmployees,
   isEditting,
   editUser,
+  currentUser,
 }) => {
   const [user, setUser] = useState(null);
   const [newEmployee, setNewEmployee] = useState({
@@ -148,6 +149,14 @@ const EmployeeModal = ({
         setValidation({
           ...validation,
           pin: { invalid: true, msg: "PIN already exist." },
+        });
+      } else if (currentUser.authority_level < newEmployee.authorityLevel) {
+        setValidation({
+          ...validation,
+          authorityLevel: {
+            invalid: true,
+            msg: "Authority level > current user's authority.",
+          },
         });
       } else {
         if (isEditting) {
@@ -234,6 +243,7 @@ const EmployeeModal = ({
           authorityLevel: null,
         });
         setCheckedEmployees([]);
+        clearValidation();
       }}
     >
       <Modal.Header closeButton>
@@ -375,6 +385,7 @@ const EmployeeManagement = ({ user }) => {
         setCheckedEmployees={setCheckedEmployees}
         isEditting={showModal.isEdit}
         editUser={checkedEmployees.length === 1 && checkedEmployees[0]}
+        currentUser={user}
       />
       <Row className="employee-list-header">
         <Col className="list-header-item" xs={1}></Col>
