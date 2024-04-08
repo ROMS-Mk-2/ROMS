@@ -7,6 +7,7 @@ let mainWindow;
 const dbPath = path.join(app.getPath("userData"), "roms.db"); //TODO: Implement Production Path
 const initialLaunch = !fs.existsSync("./roms.db");
 console.log(dbPath);
+console.log(`Initial launch: ${initialLaunch}`);
 const db = new sqlite3.Database("./roms.db");
 
 let dbClosed = false; // Add a flag to track if the database is closed
