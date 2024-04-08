@@ -58,26 +58,14 @@ const Game = () => {
       > 
     </div>
       
-    <div
-      style={{
-        position: 'absolute',
-        top: '25%',
-        left: '25%',
-        backgroundColor: 'rgba(255, 255, 255, 1)',
-        width: '70vw',
-        height: '85vh',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1,
-      }}
-    > 
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div> 
+      <div>
           <button onClick={sendZeroToUnity}>Hamburger</button>
           <button onClick={sendOneToUnity}>Pizza</button>
           <button onClick={sendTwoToUnity}>Hotdog</button>
       </div>
-      <Unity unityProvider={unityProvider} style={{ width: "100%" }} />
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Unity unityProvider={unityProvider}/>
+      <div>
           <p>{`Data: ${data}!`}</p>
       </div>
           
