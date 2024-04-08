@@ -21,7 +21,7 @@ const TableGrid = ({ orderedItems }) => {
     const fetchMenuItems = async () => {
       try {
         const response = await sendSQL(
-          "SELECT name, price, gui_position FROM menu WHERE gui_position IS NOT NULL AND gui_position != '' ORDER BY gui_position ASC;"
+          "SELECT id, name, price, gui_position FROM menu WHERE gui_position IS NOT NULL AND gui_position != '' ORDER BY gui_position ASC;"
         );
         const sortedItems = [];
         response.forEach((item) => {
@@ -68,18 +68,17 @@ const TableGrid = ({ orderedItems }) => {
   };
 
   const handleItemClick = (selectedItem) => {
-    // Check if the item already exists in the orderedItems
     if (orderedItems[selectedItem.name]) {
       dispatch(incrementItemQty(selectedItem.name));
     } else {
-      // Correctly dispatch setOrderedItem with the name and details of the selected item
       dispatch(
         setOrderedItem({
           name: selectedItem.name,
           details: {
+            menu_item: selectedItem.id,
             quantity: 1,
             price: selectedItem.price,
-            ordered: false, // Assuming you want to track if the item has been ordered yet
+            ordered: false,
           },
         })
       );

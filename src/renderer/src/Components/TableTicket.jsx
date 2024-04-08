@@ -1,99 +1,75 @@
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-
+import { useLocation, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
+import { sendSQL } from "../Utilities/SQLFunctions";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { connect } from "react-redux";
-import { useDispatch, useSelector } from "react-redux";
 import {
   clearOrderedItems,
   selectItem,
   deselectItem,
+  deselectItems,
   setTableOrderedItems,
+  clearSelectedItems,
 } from "../Utilities/Store/appReducer/appSlice";
-
 import EmptySvg from "../Assets/Empty.svg";
 import "./TableTicket.scss";
-import { useLocation, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { sendSQL } from "../Utilities/SQLFunctions";
 
 const TableTicket = ({ orderItems }) => {
   const selectedItems = useSelector((state) => state.app.selectedItems);
   const [ticketInfo, setTicketInfo] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
   let params = useParams();
 
   const tableOrderedItems = useSelector((state) => state.app.tableOrderedItems);
-
-  // Combine items, with non-ordered items first
-  const displayItems = [
-    ...Object.entries(orderItems).map(([name, details]) => ({
-      name,
-      ...details,
-      ordered: false,
-    })),
-    ...Object.entries(tableOrderedItems).map(([name, details]) => ({
-      name,
-      ...details,
-      ordered: true,
-    })),
-  ];
-
-  // Fetch ticket info based on the current transaction
-  useEffect(() => {
-    if (params.transaction_id) {
-      sendSQL(
-        `SELECT * FROM transaction_history INNER JOIN employees ON transaction_history.server_id = employees.pin WHERE id=${params.transaction_id}`
-      ).then((data) => setTicketInfo(data[0]));
-    } else {
-      setTicketInfo(null);
-    }
-  }, [params.transaction_id]);
+  const orderedItem = useSelector((state) => state.app.orderedItem);
 
   useEffect(() => {
-    // Fetch ticket info and items when entering a table
     const fetchTicketInfoAndItems = async () => {
       if (params.transaction_id) {
-        // Fetch and set ticket info based on the transaction_id
         const ticketInfoResponse = await sendSQL(
           `SELECT * FROM transaction_history INNER JOIN employees ON transaction_history.server_id = employees.pin WHERE id=${params.transaction_id}`
         );
         setTicketInfo(ticketInfoResponse[0]);
 
-        // Fetch and update ordered items for this table
         await fetchUpdatedOrders(params.transaction_id);
       } else {
-        // Clear ticket info and items when exiting a table
         setTicketInfo(null);
-        dispatch(setTableOrderedItems({})); // Assuming setTableOrderedItems with an empty object clears the items
+        dispatch(clearSelectedItems());
+        dispatch(clearOrderedItems());
+        dispatch(setTableOrderedItems({}));
       }
     };
 
     fetchTicketInfoAndItems();
 
-    // Cleanup function to clear items when the component unmounts or when transaction_id changes
     return () => {
       dispatch(setTableOrderedItems({}));
     };
   }, [params.transaction_id]);
 
   const fetchUpdatedOrders = async (transactionId) => {
-    // Fetch updated orders based solely on the transaction_id
-    const updatedOrdersResponse = await sendSQL(
-      `SELECT menu.id, menu.name, orders.quantity, menu.price 
-     FROM orders 
-     JOIN menu ON orders.menu_item = menu.id 
-     WHERE orders.transaction_id = ${transactionId}`
-    );
+    const updatedOrdersResponse = await sendSQL(`
+  SELECT 
+    orders.menu_item, 
+    menu.name, 
+    orders.quantity, 
+    menu.price
+  FROM orders 
+  JOIN menu ON orders.menu_item = menu.id 
+  WHERE orders.transaction_id = ${transactionId}
+`);
 
     const updatedOrderedItems = updatedOrdersResponse.reduce(
       (acc, item) => ({
         ...acc,
         [item.name]: {
+          menu_item: item.menu_item,
           quantity: item.quantity,
           price: item.price,
           ordered: true,
@@ -108,29 +84,46 @@ const TableTicket = ({ orderItems }) => {
 
   const handleOrder = async () => {
     const transactionId = params.transaction_id;
-    for (const [itemName, itemDetails] of Object.entries(orderItems)) {
+    const identifiersToDeselect = Object.keys(orderedItem).map(
+      (itemName) => `${itemName}-new`
+    );
+
+    for (const [itemName, itemDetails] of Object.entries(orderedItem)) {
       const menuItemResponse = await sendSQL(
         `SELECT id FROM menu WHERE name='${itemName.replace("'", "''")}'`
       );
       const menuItemId = menuItemResponse[0]?.id;
 
       if (menuItemId) {
-        // Check if the order for this menu item already exists for the current transaction
         const existingOrderResponse = await sendSQL(
-          `SELECT quantity FROM orders WHERE transaction_id=${transactionId} AND menu_item=${menuItemId}`
+          `SELECT id, quantity, transaction_price FROM orders WHERE transaction_id=${transactionId} AND menu_item=${menuItemId}`
         );
 
         if (existingOrderResponse.length > 0) {
-          // If it exists, update the quantity
+          const existingOrderComped =
+            existingOrderResponse[0].transaction_price === 0;
+          const newItemComped = itemDetails.price === 0;
+
           const newQuantity =
             existingOrderResponse[0].quantity + itemDetails.quantity;
-          await sendSQL(
-            `UPDATE orders SET quantity=${newQuantity} WHERE transaction_id=${transactionId} AND menu_item=${menuItemId}`
-          );
+
+          if (existingOrderComped && newItemComped) {
+            await sendSQL(
+              `UPDATE orders SET quantity=${newQuantity} WHERE id=${existingOrderResponse[0].id}`
+            );
+          } else if (!existingOrderComped && newItemComped) {
+          } else if (existingOrderComped && !newItemComped) {
+            await sendSQL(
+              `UPDATE orders SET quantity=${itemDetails.quantity}, transaction_price=${itemDetails.price} WHERE id=${existingOrderResponse[0].id}`
+            );
+          } else {
+            await sendSQL(
+              `UPDATE orders SET quantity=${newQuantity}, transaction_price=${itemDetails.price} WHERE id=${existingOrderResponse[0].id}`
+            );
+          }
         } else {
-          // If it doesn't exist, insert a new order
           await sendSQL(
-            `INSERT INTO orders (transaction_id, menu_item, quantity) VALUES (${transactionId}, ${menuItemId}, ${itemDetails.quantity})`
+            `INSERT INTO orders (transaction_id, menu_item, quantity, transaction_price) VALUES (${transactionId}, ${menuItemId}, ${itemDetails.quantity}, ${itemDetails.price})`
           );
         }
       } else {
@@ -138,7 +131,9 @@ const TableTicket = ({ orderItems }) => {
         continue;
       }
     }
+
     dispatch(clearOrderedItems());
+    dispatch(deselectItems(identifiersToDeselect));
     await fetchUpdatedOrders(transactionId);
   };
 
@@ -152,7 +147,6 @@ const TableTicket = ({ orderItems }) => {
   };
 
   const renderItems = () => {
-    // Combine and sort items: non-ordered items first, then ordered items
     const combinedItems = [
       ...Object.entries(orderItems).map(([name, details]) => ({
         name,
@@ -166,7 +160,6 @@ const TableTicket = ({ orderItems }) => {
       })),
     ].sort((a, b) => (a.ordered === b.ordered ? 0 : a.ordered ? 1 : -1));
 
-    // Render items with checkboxes for selection
     return combinedItems.map(({ name, quantity, price, ordered }, index) => (
       <Row
         key={index}
@@ -185,7 +178,6 @@ const TableTicket = ({ orderItems }) => {
             <span>{name}</span>
           </div>
         </Col>
-        {/* Ensure these columns align under their respective headers */}
         <Col className="d-flex justify-content-center">{quantity}</Col>
         <Col className="d-flex justify-content-center">{price}</Col>
       </Row>
@@ -213,7 +205,13 @@ const TableTicket = ({ orderItems }) => {
         </Row>
       </div>
       <Row className="ticket-items">
-        <Col>
+        <Col
+          className={
+            Object.keys({ ...orderItems, ...tableOrderedItems }).length <= 0
+              ? "d-flex justify-content-center"
+              : ""
+          }
+        >
           {Object.keys({ ...orderItems, ...tableOrderedItems }).length > 0 ? (
             renderItems()
           ) : (
@@ -226,7 +224,11 @@ const TableTicket = ({ orderItems }) => {
       </Row>
       <Row style={{ display: "flex", gap: "8px" }} className="g-0">
         <Col>
-          <Button className="ticket-fn-button" onClick={handleOrder}>
+          <Button
+            className="ticket-fn-button"
+            onClick={handleOrder}
+            disabled={!ticketInfo}
+          >
             Order
           </Button>
         </Col>
@@ -236,6 +238,7 @@ const TableTicket = ({ orderItems }) => {
             onClick={() =>
               navigate(`/app/table/${params.transaction_id}/functions`)
             }
+            disabled={!ticketInfo}
           >
             Functions
           </Button>

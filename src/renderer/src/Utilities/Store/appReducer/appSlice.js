@@ -4,6 +4,8 @@ const initialState = {
   orderedItem: {},
   selectedItems: [],
   tableOrderedItems: {},
+  editModalVisible: false,
+  editingItem: {},
 };
 
 const appSlice = createSlice({
@@ -12,20 +14,16 @@ const appSlice = createSlice({
   reducers: {
     setOrderedItem(state, action) {
       const { name, details } = action.payload;
-      // Ensure details include ordered status
       state.orderedItem[name] = { ...details };
     },
     incrementItemQty(state, action) {
       const itemName = action.payload;
-      // Increment in orderedItem (to-be-ordered items)
       if (state.orderedItem[itemName]) {
         state.orderedItem[itemName].quantity += 1;
       }
-      // Optionally handle increment for tableOrderedItems if needed
     },
     decrementItemQty(state, action) {
       const itemName = action.payload;
-      // Decrement in orderedItem (to-be-ordered items)
       if (
         state.orderedItem[itemName] &&
         state.orderedItem[itemName].quantity > 1
@@ -34,23 +32,27 @@ const appSlice = createSlice({
       } else {
         delete state.orderedItem[itemName];
       }
-      // Optionally handle decrement for tableOrderedItems if needed
     },
     editItemQty(state, action) {
-      state.orderedItem[action.payload.name] = action.payload.newQty;
+      const { itemName, newQty } = action.payload;
+      if (state.orderedItem[itemName]) {
+        state.orderedItem[itemName].quantity = newQty;
+      } else if (state.tableOrderedItems[itemName]) {
+        state.tableOrderedItems[itemName].quantity = newQty;
+      }
     },
-    deleteItem(state, action) {
-      const next = { ...state.orderedItem };
-      delete next[action.payload];
-      state.orderedItem = next;
+    deleteOrderedItem(state, action) {
+      const itemName = action.payload;
+      delete state.orderedItem[itemName];
     },
+
+    deleteTableOrderedItem(state, action) {
+      const itemName = action.payload;
+      delete state.tableOrderedItems[itemName];
+    },
+
     clearOrderedItems(state) {
       state.orderedItem = {};
-    },
-    selectItem(state, action) {
-      if (!state.selectedItems.includes(action.payload)) {
-        state.selectedItems.push(action.payload);
-      }
     },
     selectItem(state, action) {
       if (!state.selectedItems.includes(action.payload)) {
@@ -72,24 +74,53 @@ const appSlice = createSlice({
       state.tableOrderedItems = {};
     },
     markItemsAsOrdered(state) {
-      // Merge orderedItem into tableOrderedItems
       Object.entries(state.orderedItem).forEach(([key, value]) => {
         if (state.tableOrderedItems[key]) {
-          // If the item exists in tableOrderedItems, update quantity
           state.tableOrderedItems[key].quantity += value.quantity;
         } else {
-          // Otherwise, add the item to tableOrderedItems
           state.tableOrderedItems[key] = { ...value, ordered: true };
         }
       });
-      // Reset orderedItem and selectedItems as they are now ordered
       state.orderedItem = {};
       state.selectedItems = [];
+    },
+    showEditModal(state, action) {
+      const { itemName, isOrdered, quantity, price } = action.payload;
+      state.editModalVisible = true;
+      state.editingItem = { itemName, isOrdered, quantity, price };
+    },
+    hideEditModal(state) {
+      state.editModalVisible = false;
+      state.editingItem = null;
+    },
+    deselectItems(state, action) {
+      const identifiers = action.payload;
+      state.selectedItems = state.selectedItems.filter(
+        (item) => !identifiers.includes(item)
+      );
+    },
+    compItems: (state, action) => {
+      const identifiers = action.payload;
+
+      identifiers.forEach((identifier) => {
+        const [itemName, itemState] = identifier.split("-");
+
+        if (itemState === "new" && state.orderedItem[itemName]) {
+          state.orderedItem[itemName].price = 0;
+        }
+
+        if (itemState === "ordered" && state.tableOrderedItems[itemName]) {
+          state.tableOrderedItems[itemName].price = 0;
+        }
+      });
     },
   },
 });
 
 export const {
+  compItems,
+  deleteTableOrderedItem,
+  deselectItems,
   setTableOrderedItems,
   clearTableOrderedItems,
   markItemsAsOrdered,
@@ -97,10 +128,12 @@ export const {
   incrementItemQty,
   decrementItemQty,
   editItemQty,
-  deleteItem,
+  deleteOrderedItem,
   clearOrderedItems,
   selectItem,
   deselectItem,
   clearSelectedItems,
+  showEditModal,
+  hideEditModal,
 } = appSlice.actions;
 export default appSlice.reducer;

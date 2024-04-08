@@ -184,8 +184,6 @@ const Header = ({ restaurantName, logo, user }) => {
 
   const isFunctionRoute = location.pathname.includes("/functions");
 
-  console.log(isFunctionRoute);
-
   return (
     <>
       <div className="app-header-container">
