@@ -186,8 +186,9 @@ const Header = ({ restaurantName, logo, user }) => {
               />
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem>View Profile</DropdownItem>
-              <DropdownItem>Clock Out</DropdownItem>
+              <DropdownItem onClick={() => navigate("game")}>
+                Launch Simulation
+              </DropdownItem>
               <DropdownItem onClick={onLogout}>Logout</DropdownItem>
             </DropdownMenu>
           </Dropdown>
@@ -224,9 +225,9 @@ const Header = ({ restaurantName, logo, user }) => {
             <Nav.Item>
               <Nav.Link eventKey="table">Table</Nav.Link>
             </Nav.Item>
-            <Nav.Item>
+            {/* <Nav.Item>
               <Nav.Link eventKey="game">Simulation</Nav.Link>
-            </Nav.Item>
+            </Nav.Item> */}
             <Nav.Item>
               <Nav.Link eventKey="admin" disabled={user.authority_level < 2}>
                 Administrator
