@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { Unity, useUnityContext } from "react-unity-webgl";
 
 import EmptySvg from "../Assets/Empty.svg";
 import { SimContext } from "../Utilities/SimContext";
 import "./TableTicket.scss";
 
 const TableTicketSim = () => {
-  const { simItems, setSimItems, simCheckoutFn, setSimCheckoutFn } =
+  const { simItems, setSimItems, sendCheckout, setSendCheckout } =
     useContext(SimContext);
+
   return (
     <Container className="ticket-container sim" fluid>
       <div className="ticket-header">
@@ -58,7 +60,10 @@ const TableTicketSim = () => {
       </Row>
       <Row style={{ display: "flex", gap: "8px" }} className="g-0">
         <Col>
-          <Button className="ticket-fn-button" onClick={() => simCheckoutFn()}>
+          <Button
+            className="ticket-fn-button"
+            onClick={() => setSendCheckout(true)}
+          >
             Order
           </Button>
         </Col>

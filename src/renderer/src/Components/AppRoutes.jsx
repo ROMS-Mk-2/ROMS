@@ -18,10 +18,10 @@ import { SimContext } from "../Utilities/SimContext.jsx";
 
 const AppRoutes = () => {
   const [simItems, setSimItems] = useState([]);
-  const [simCheckoutFn, setSimCheckoutFn] = useState(() => () => {});
+  const [sendCheckout, setSendCheckout] = useState(false);
   return (
     <SimContext.Provider
-      value={{ simItems, setSimItems, simCheckoutFn, setSimCheckoutFn }}
+      value={{ simItems, setSimItems, sendCheckout, setSendCheckout }}
     >
       <Provider store={store}>
         <Router>

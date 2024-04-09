@@ -16,10 +16,10 @@ const Game = () => {
   const { addEventListener, removeEventListener } = useUnityContext();
   const [data, setData] = useState();
   const [recData, recSetData] = useState();
-  const { simItems, setSimItems, simCheckoutFn, setSimCheckoutFn } =
+  const { simItems, setSimItems, sendCheckout, setSendCheckout } =
     useContext(SimContext);
 
-  const { unityProvider, sendMessage } = useUnityContext({
+  const { unityProvider, isLoaded, sendMessage } = useUnityContext({
     loaderUrl: "./unity/Builds.loader.js",
     dataUrl: "./unity/Builds.data",
     frameworkUrl: "./unity/Builds.framework.js",
@@ -27,8 +27,10 @@ const Game = () => {
   });
 
   useEffect(() => {
-    setSimCheckoutFn(() => () => checkoutCustomers());
-  }, []);
+    if (sendCheckout && isLoaded) {
+      checkoutCustomers();
+    }
+  }, [sendCheckout]);
 
   function sendDataToUnity(data) {
     var numToString = "" + data;
@@ -47,6 +49,7 @@ const Game = () => {
     if (recData == 0) sendMessage("Manager", "ReceiveData", numToString);
 
     setSimItems([]);
+    setSendCheckout(false);
   }
 
   const handleSetData = useCallback((data) => {
