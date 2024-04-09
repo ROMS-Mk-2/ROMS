@@ -1,6 +1,7 @@
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { Col } from "react-bootstrap";
+import { PlusSquare } from "react-bootstrap-icons";
 
 function DraggableCell({ item, onMove, onItemSelect }) {
   const [{ isDragging }, drag] = useDrag(
@@ -31,7 +32,7 @@ function DraggableCell({ item, onMove, onItemSelect }) {
       className="grid-col d-flex align-items-center justify-content-center"
       onClick={() => onItemSelect(item)}
     >
-      {item.name || "Empty Cell"}
+      {item.name || <PlusSquare size={16} />}
     </Col>
   );
 }

@@ -9,7 +9,7 @@ import { sendSQL, insertSQL } from "../Utilities/SQLFunctions";
 const createEmptyGrid = (size = 30) =>
   Array.from({ length: size }, (_, index) => ({
     id: `empty-${index}`,
-    name: "+",
+    name: "",
     isEmpty: true,
   }));
 
