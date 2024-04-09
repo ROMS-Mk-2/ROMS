@@ -76,7 +76,7 @@ function MenuManagementGrid({ data, onItemUpdate }) {
         for (let i = 0; i < cellsToAdd; i++) {
           newItems.push({
             id: `empty-${prevItems.length + i}`,
-            name: "+",
+            name: "",
             isEmpty: true,
           });
         }
@@ -95,7 +95,7 @@ function MenuManagementGrid({ data, onItemUpdate }) {
       ) {
         newItems.push({
           id: `empty-${newItems.length}`,
-          name: "+",
+          name: "",
           isEmpty: true,
         });
       }
@@ -142,9 +142,6 @@ function MenuManagementGrid({ data, onItemUpdate }) {
       case "category":
         setCategory(value);
         break;
-      case "image":
-        setImageFile(files[0]);
-        break;
       default:
         break;
     }
@@ -167,7 +164,6 @@ function MenuManagementGrid({ data, onItemUpdate }) {
     formData.append("price", price);
     formData.append("description", description);
     formData.append("category", category);
-    formData.append("image", imageFile);
 
     const isExistingItem = typeof itemId.startsWith("empty-") === false;
     let sqlQuery = "";
@@ -222,7 +218,6 @@ function MenuManagementGrid({ data, onItemUpdate }) {
     setPrice("");
     setDescription("");
     setCategory("");
-    setImageFile(null);
     setItemId("");
   };
 
@@ -232,7 +227,6 @@ function MenuManagementGrid({ data, onItemUpdate }) {
     setPrice(item.price || "");
     setDescription(item.description || "");
     setCategory(item.category || "");
-    setImageFile(null);
     setShowModal(true);
 
     setCurrentPosition(findItemPosition(item.id));

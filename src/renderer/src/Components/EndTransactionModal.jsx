@@ -49,7 +49,7 @@ const EndTransactionModal = ({ show, onHide }) => {
       `);
       dispatch(clearOrderedItems());
       onHide();
-      navigate(-2);
+      navigate("/app/table");
     } catch (error) {
       console.error("Error updating transaction history:", error);
     }

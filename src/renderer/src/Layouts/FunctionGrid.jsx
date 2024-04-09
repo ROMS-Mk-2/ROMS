@@ -149,7 +149,6 @@ const FunctionGrid = () => {
     { name: "Edit Quantity", disabled: selectedItemCount !== 1 },
     { name: "Void Item", disabled: selectedItemCount < 1 },
     { name: "Comp Item", disabled: selectedItemCount < 1 },
-    { name: "Move Table", disabled: false },
     { name: "End Transaction", disabled: false },
   ].map((item) => ({
     ...item,
