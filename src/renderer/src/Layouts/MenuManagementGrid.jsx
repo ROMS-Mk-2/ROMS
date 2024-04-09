@@ -282,10 +282,6 @@ function MenuManagementGrid({ data, onItemUpdate }) {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group>
-            <Form.Label>Image</Form.Label>
-            <Form.Control type="file" name="image" onChange={handleChange} />
-          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>

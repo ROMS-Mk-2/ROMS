@@ -70,17 +70,7 @@ const Header = ({ restaurantName, logo, user }) => {
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="/app/admin/menu-management/category1">
-            Category 1
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/menu-management/category2">
-            Category 2
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/menu-management/category3">
-            Category 3
+            Menu Management
           </Nav.Link>
         </Nav.Item>
       </Nav>
@@ -120,7 +110,7 @@ const Header = ({ restaurantName, logo, user }) => {
       <Nav
         variant="tab"
         onSelect={(key) => navigate(key)}
-        defaultActiveKey="/app/admin/employee-management/category1"
+        defaultActiveKey="/app/admin/employee-management"
       >
         <Nav.Item>
           <Nav.Link eventKey="/app/admin">
@@ -128,18 +118,8 @@ const Header = ({ restaurantName, logo, user }) => {
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="/app/admin/employee-management/category1">
-            Category 1
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/employee-management/category2">
-            Category 2
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="/app/admin/employee-management/category3">
-            Category 3
+          <Nav.Link eventKey="/app/admin/employee-management">
+            Employees
           </Nav.Link>
         </Nav.Item>
       </Nav>
@@ -174,6 +154,10 @@ const Header = ({ restaurantName, logo, user }) => {
   const onLogout = () => {
     dispatch(logout());
     navigate("/");
+  };
+
+  const launchSim = () => {
+    dispatch(navigate("/app/game"));
   };
 
   const isAdminRoute = Object.keys(adminRoutes).some((route) =>
@@ -239,6 +223,9 @@ const Header = ({ restaurantName, logo, user }) => {
           <Nav variant="tabs" defaultActiveKey="table" onSelect={navigateTo}>
             <Nav.Item>
               <Nav.Link eventKey="table">Table</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="game">Simulation</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="admin" disabled={user.authority_level < 2}>
