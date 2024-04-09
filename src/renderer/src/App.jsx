@@ -1,14 +1,22 @@
+import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Header from "./Layouts/Header";
 import TableTicket from "./Components/TableTicket";
+import TableTicketSim from "./Components/TableTicketSim";
 import "./App.scss";
 
 function App({ isAuth, orderedItems }) {
+  const [isSim, setIsSim] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname.startsWith("/app/game")) setIsSim(true);
+    else setIsSim(false);
+  }, [location.pathname]);
   return isAuth ? (
     <Container className="app-container" fluid>
       <Row>
@@ -21,7 +29,8 @@ function App({ isAuth, orderedItems }) {
           <Outlet />
         </Col>
         <Col className="g-0">
-          <TableTicket orderItems={orderedItems} />
+          {!isSim && <TableTicket orderItems={orderedItems} />}
+          {isSim && <TableTicketSim />}
         </Col>
       </Row>
     </Container>
