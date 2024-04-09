@@ -225,9 +225,6 @@ const Header = ({ restaurantName, logo, user }) => {
             <Nav.Item>
               <Nav.Link eventKey="table">Table</Nav.Link>
             </Nav.Item>
-            {/* <Nav.Item>
-              <Nav.Link eventKey="game">Simulation</Nav.Link>
-            </Nav.Item> */}
             <Nav.Item>
               <Nav.Link eventKey="admin" disabled={user.authority_level < 2}>
                 Administrator
