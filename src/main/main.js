@@ -73,6 +73,7 @@ const initializeDatabase = async () => {
       transaction_id INTEGER NOT NULL,
       menu_item INTEGER NOT NULL,
       quantity INTEGER NOT NULL,
+      transaction_price DOUBLE,
       FOREIGN KEY (transaction_id) REFERENCES transaction_history(id),
       FOREIGN KEY (menu_item) REFERENCES menu(id)
     );`);
