@@ -13,9 +13,9 @@ Support Coming Later:
 - GNU/Linux (In Development)
 
 # Installation Guide:
-1.) Download the newest release version.
-2.) Unzip the downloaded .zip file into a secure directory.
-3.) Run the ROMS Mk.2 .exe file located inside of the unzipped directory.
+1. Download the newest release version.
+2. Unzip the downloaded .zip file into a secure directory.
+3. Run the ROMS Mk.2 .exe file located inside the unzipped directory.
 
 # ROMS Mk.2
 The ROMS Mk.2 codebase is licensed under The MIT License (MIT)
