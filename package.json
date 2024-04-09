@@ -1,15 +1,15 @@
 {
   "name": "romsmk2",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0-alpha",
   "main": "./build/main/main.js",
   "scripts": {
-    "dev": "electron-vite dev -w",
+    "dev": "electron-vite dev -w --outDir=build",
     "build": "electron-vite build --outDir=build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "electron-vite preview",
     "test": "jest",
-    "start": "electron-forge start",
+    "start": "npm run build && electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
