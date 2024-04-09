@@ -1,6 +1,6 @@
-import { app, BrowserWindow, dialog, ipcMain } from "electron/main";
-import * as path from "path";
-import * as fs from "node:fs";
+const { app, BrowserWindow, dialog, ipcMain } = require("electron/main");
+const path = require("path");
+const fs = require("node:fs");
 const sqlite3 = require("sqlite3").verbose();
 
 let mainWindow;
@@ -26,8 +26,7 @@ const runQuery = (query) => {
 
 const initializeDatabase = async () => {
   await runQuery(`
-    CREATE TABLE IF NOT EXISTS employees (
-      pin TEXT PRIMARY KEY NOT NULL,
+    CREATE TABLE IF NOT EXISTS employees (pin TEXT PRIMARY KEY NOT NULL,
       first_name TEXT NOT NULL,
       last_name TEXT NOT NULL,
       authority_level INTEGER NOT NULL,
