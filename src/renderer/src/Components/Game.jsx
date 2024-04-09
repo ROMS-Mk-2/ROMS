@@ -42,6 +42,7 @@ const Game = () => {
     };
   }, [addEventListener, removeEventListener, handleRecData]);
 
+  
   return (
     //Hides the ticket on the side
     //Also centers all content
