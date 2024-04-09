@@ -3,10 +3,6 @@ import { useDispatch, connect } from "react-redux";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
 
 import GridLayout from "../Components/GridLayout";
-import {
-  setOrderedItem,
-  incrementItemQty,
-} from "../Utilities/Store/appReducer/appSlice";
 
 const AdminGrid = () => {
   const dispatch = useDispatch();

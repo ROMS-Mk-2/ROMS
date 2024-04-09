@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { Form, Modal } from "react-bootstrap";
+import { Form, Modal, ToastContainer, Toast } from "react-bootstrap";
 import { useDispatch, connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 
@@ -18,6 +18,7 @@ const PasswordModal = ({
   pin,
   loginEmployee,
   onClear,
+  setShowToast,
 }) => {
   const [password, setPassword] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -55,7 +56,7 @@ const PasswordModal = ({
 
   const updateRoot = async () => {
     setFormSubmitted(true);
-    if (password.length > 10) {
+    if (password.length >= 10) {
       if (pin.length === 4) {
         const response = await insertSQL(
           `UPDATE employees SET root_password='${password}' WHERE pin='${pin}'`
@@ -63,6 +64,7 @@ const PasswordModal = ({
         onClear();
         clearValidation();
         setShow(false);
+        setShowToast(true);
       }
     } else {
       setValidation({
@@ -116,6 +118,7 @@ const PasswordModal = ({
 };
 
 const PinPad = ({ isAuth }) => {
+  const [showToast, setShowToast] = useState(false);
   const [showRootModal, setShowRootModal] = useState(false);
   const [rootFirst, setRootFirst] = useState(false);
   const [pin, setPin] = useState("");
@@ -143,9 +146,10 @@ const PinPad = ({ isAuth }) => {
             loginEmployee(data[0]);
             onClear();
           }
+        } else {
+          onClear();
+          setIsValid(false);
         }
-
-        setIsValid(false);
       });
     }
   }, [pin]);
@@ -171,6 +175,11 @@ const PinPad = ({ isAuth }) => {
     <Navigate to="/app/table" />
   ) : (
     <Container className="pin-pad-container">
+      <ToastContainer position="top-end" style={{ padding: "8px" }}>
+        <Toast onClose={() => setShowToast(false)} show={showToast} autohide>
+          <Toast.Body>Root User Password Updated.</Toast.Body>
+        </Toast>
+      </ToastContainer>
       <PasswordModal
         show={showRootModal}
         setShow={setShowRootModal}
@@ -178,6 +187,7 @@ const PinPad = ({ isAuth }) => {
         pin={pin}
         loginEmployee={loginEmployee}
         onClear={onClear}
+        setShowToast={setShowToast}
       />
       <div className="ellipse-container">
         <div

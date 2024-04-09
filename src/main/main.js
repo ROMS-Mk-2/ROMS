@@ -11,6 +11,7 @@ let mainWindow;
 const dbPath = path.join(app.getPath("userData"), "roms.db"); //TODO: Implement Production Path
 const initialLaunch = !fs.existsSync(dbPath);
 console.log(dbPath);
+console.log(`Initial launch: ${initialLaunch}`);
 const db = new sqlite3.Database(dbPath);
 
 let dbClosed = false; // Add a flag to track if the database is closed
@@ -29,8 +30,7 @@ const runQuery = (query) => {
 
 const initializeDatabase = async () => {
   await runQuery(`
-    CREATE TABLE IF NOT EXISTS employees (
-      pin TEXT PRIMARY KEY NOT NULL,
+    CREATE TABLE IF NOT EXISTS employees (pin TEXT PRIMARY KEY NOT NULL,
       first_name TEXT NOT NULL,
       last_name TEXT NOT NULL,
       authority_level INTEGER NOT NULL,
