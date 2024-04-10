@@ -15,4 +15,11 @@ Support Coming Later:
 # Installation Guide:
 1. Download the newest release version.
 2. Unzip the downloaded .zip file into a secure directory.
-3. Run the ROMS Mk.2 .exe file located inside the unzipped directory.
+3. Run the `romsmk2.exe` file located inside the unzipped directory.
+
+# Building from source code:
+1. `npm i`
+2. `npm run build`
+3. `npm run make`
+4. Unzip the file
+5. Run the `romsmk2.exe` file
