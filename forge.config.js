@@ -9,7 +9,10 @@ module.exports = {
   makers: [
     {
       name: "@electron-forge/maker-squirrel",
-      config: {},
+      config: {
+        authors: "PACK'EN",
+        description: "Restaurant Operation Management System"
+      },
     },
     {
       name: "@electron-forge/maker-zip",
