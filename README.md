@@ -5,9 +5,8 @@
 <div align="center">
         <h3>Table of Contents</h3>
         <p><a href="#about-the-project">About The Project</a></p>
-        <p><a href="#platforms">Platform</a></p>
+        <p><a href="#getting-started">Getting Started</a></p>
         <p><a href="#license">License</a></p>
-        <p><a href="#contact">Contact</a></p>
 </div>
 
 ## About The Project
@@ -18,17 +17,53 @@ ROMS Mk.2 is developed primarily for assisting restaurant staff with daily activ
 
 ### Built With
 <p>
-    <img src="https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js"/>
-    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React"/>
-    <img src="https://img.shields.io/badge/Electron-2B2E3A?style=for-the-badge&logo=electron&logoColor=9FEAF9" alt="Electron"/>
-    <img src="https://img.shields.io/badge/Unity-100000?style=for-the-badge&logo=unity&logoColor=white" alt="Unity"/>
+        <img src="https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js"/>
+        <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React"/>
+        <img src="https://img.shields.io/badge/Electron-2B2E3A?style=for-the-badge&logo=electron&logoColor=9FEAF9" alt="Electron"/>
+        <img src="https://img.shields.io/badge/Unity-100000?style=for-the-badge&logo=unity&logoColor=white" alt="Unity"/>
+        <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white"/>
 </p>
 
-
-
+### Contributors
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://www.github.com/mena1atwit">
+        <img src="https://www.github.com/mena1atwit.png" width="50" alt="Alex Men"/>
+        <br><strong>Alex Men</strong>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.github.com/faviercatwit">
+        <img src="https://www.github.com/faviercatwit.png" width="50" alt="Corentin Favier"/>
+        <br><strong>Corentin Favier</strong>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.github.com/wue1atwit">
+        <img src="https://www.github.com/wue1atwit.png" width="50" alt="Ethan Wu"/>
+        <br><strong>Ethan Wu</strong>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.github.com/brunok1atwit">
+        <img src="https://www.github.com/brunok1atwit.png" width="50" alt="Kris Bruno"/>
+        <br><strong>Kris Bruno</strong>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.github.com/falconepatwit">
+        <img src="https://www.github.com/falconepatwit.png" width="50" alt="Payton Falcone"/>
+        <br><strong>Payton Falcone</strong>
+      </a>
+    </td>
+  </tr>
+</table>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Platforms
+## Getting Started
+
+### Platforms
 Currently, ROMS Mk.2 Supports:
 - Windows (Supporting Windows 10 or Later)
 
@@ -60,16 +95,3 @@ Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more informati
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Contact
-
-<a href="https://www.github.com/mena1atwit"><img src="https://www.github.com/mena1atwit.png" width=50> Alex Men</a>
-
-<a href="https://www.github.com/faviercatwit"><img src="https://www.github.com/faviercatwit.png" width=50> Corentin Favier</a>
-
-<a href="https://www.github.com/wue1atwit"><img src="https://www.github.com/wue1atwit.png" width=50> Ethan Wu</a>
-
-<a href="https://www.github.com/brunok1atwit"><img src="https://www.github.com/brunok1atwit.png" width=50> Kris Bruno</a>
-
-<a href="https://www.github.com/falconepatwit"><img src="https://www.github.com/falconepatwit.png" width=50> Payton Falcone</a>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
