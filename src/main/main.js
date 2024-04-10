@@ -141,7 +141,7 @@ function createWindow() {
       webSecurity: false, //REMOVE AT PRODUCTION
     },
   });
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();s
   // TO MAXIMIZE WINDOW (NOT FULLSCREEN)
   // mainWindow.maximize();
   mainWindow.loadFile(path.join(__dirname, "../renderer/index.html"));
